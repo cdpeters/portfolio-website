@@ -1,2 +1,2 @@
-# dash-test-app
-A testing ground for Dash app development including app features and experimenting with dashboard visualizations.
+# Portfolio Website
+A portfolio website containing programming projects.
