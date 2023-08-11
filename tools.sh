@@ -11,7 +11,7 @@
 current_dir=$(basename "$(pwd)")
 
 # Assign the names of the project and app directories
-project_dir="dash-test-app"
+project_dir="portfolio-website"
 
 nb_app_dir="notebooks"
 py_app_dir="src"
