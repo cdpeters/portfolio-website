@@ -1,56 +1,37 @@
 """A CLI for running development tools on jupyter notebooks and python files."""
+
 import subprocess
 
 import click
 
-
-# Decorator that adds a blank line before and after a tool is run
-def double_echo(func):
-    """Add blank lines."""
-
-    def wrapper_double_echo(*args, **kwargs):
-        """Add a blank line before and after the func call."""
-        click.echo("")
-        func(*args, **kwargs)
-        click.echo("")
-
-    return wrapper_double_echo
-
-
-@double_echo
-def create_banner(message, banner_length, fg, bg):
-    """Create a banner with a message and coloring for clarity."""
-    whitespace = banner_length - len(message)
-    left_ws = whitespace // 2
-    right_ws = whitespace - left_ws
-    banner_message = f"{' '*left_ws}{message}{' '*right_ws}"
-    click.echo(click.style(banner_message, fg=fg, bg=bg))
-
-
-header_banner_length = 80
-tool_banner_length = 70
+# Help messages for the options and arguments.
+help_msg = {
+    "markdown_help": "Runs blacken-docs on FILENAME to format code blocks within.",
+    "markdown_only_help": """ONLY runs blacken-docs on FILENAME to format code
+    blocks within. No other tools are run.""",
+    "skip_help": """Skips application of the tool names provided. The value is a
+    string containing space separated tool names""",
+    "skip_metavar": "STRING",
+    "file_type_help": """'nb' - Runs tools on jupyter notebooks (.ipynb) only.
+    'all' - Runs tools on both jupyter notebooks and python files (.ipynb and .py).
+    'py' - Runs tools on python files (.py) only.""",
+    "filenames_metavar": "[FILENAME]...",
+}
 
 
 @click.command()
-@click.option(
-    "-md",
-    "--markdown",
-    is_flag=True,
-    help="Runs blacken-docs on FILENAME to format code blocks within.",
-)
+@click.option("-md", "--markdown", is_flag=True, help=help_msg["markdown_help"])
 @click.option(
     "-mdo",
     "--markdown-only",
     is_flag=True,
-    help="""ONLY runs blacken-docs on FILENAME to format code blocks within. No other
-    tools are run.""",
+    help=help_msg["markdown_only_help"],
 )
 @click.option(
     "-s",
     "--skip",
-    help="""Skips application of the tool names provided. The value is a string
-    containing space separated tool names""",
-    metavar="STRING",
+    help=help_msg["skip_help"],
+    metavar=help_msg["skip_metavar"],
 )
 @click.option(
     "-ft",
@@ -58,17 +39,21 @@ tool_banner_length = 70
     type=click.Choice(["nb", "py", "all"]),
     show_default=True,
     default="nb",
-    help="""'nb' - Runs tools on jupyter notebooks (.ipynb) only.
-    'all' - Runs tools on both jupyter notebooks and python files (.ipynb and .py).
-    'py' - Runs tools on python files (.py) only.""",
+    help=help_msg["file_type_help"],
 )
 @click.argument(
     "filenames",
     nargs=-1,
     type=click.Path(exists=True, dir_okay=False),
-    metavar="[FILENAME]...",
+    metavar=help_msg["filenames_metavar"],
 )
-def tools(markdown, markdown_only, skip, file_type, filenames):
+def tools(
+    markdown: bool,
+    markdown_only: bool,
+    skip: str | None,
+    file_type: str,
+    filenames: tuple[str, ...],
+) -> None:
     """tools.py runs development tools on project files.
 
     tools.py can be run from either the project root directory or any of the first level
@@ -88,21 +73,94 @@ def tools(markdown, markdown_only, skip, file_type, filenames):
           flake8: linter
             mypy: type checker
     """
+    # Constants ------------------------------------------------------------------------
     run_tools = ["black", "isort", "interrogate", "flake8"]
+    header_banner_len = 80
+    tool_banner_len = 74
+    type_prepend = {"nb": "notebooks (.ipynb)", "py": "python files (.py)"}
 
-    click.echo("------------ options ------------")
-    click.echo(f"markdown: {markdown}")
-    click.echo(f"markdown_only: {markdown_only}")
-    click.echo(f"skip: {skip}")
-    click.echo(f"file_type: {file_type}")
-    click.echo("---------- end options ----------\n\n")
+    # Helper Functions -----------------------------------------------------------------
+    def double_echo(func):
+        """Decorate banners with two blank lines on each side."""
 
-    click.echo("----------- arguments -----------")
-    if filenames:
-        click.echo(f"filename: {' '.join(filenames)}")
-    else:
-        click.echo("filenames:")
-    click.echo("--------- end arguments ---------\n\n")
+        def wrapper_double_echo(*args, **kwargs):
+            """Add a blank line before and after the func call."""
+            click.echo("")
+            func(*args, **kwargs)
+            click.echo("")
+
+        return wrapper_double_echo
+
+    @double_echo
+    def create_banner(
+        message: str,
+        *,
+        banner_length: int,
+        type_prepend: dict[str, str],
+        fg_color: str,
+        bg_color: str,
+        file_type: str | None = None,
+    ) -> None:
+        """Create a banner with a message and coloring for clarity.
+
+        If `file_type` is not specified, the banner is a header banner and no file type
+        is prepended to the banner. If `file_type` is specified, the banner is a tool
+        banner thus the file type that the tool is running on will be prepended to the
+        banner.
+
+        Parameters
+        ----------
+        message : str
+            Banner message.
+        banner_length : int
+            Length of banner in number of characters.
+        type_prepend : dict[str, str]
+            Mapping from `file_type` string to the prepend string.
+        fg_color : str
+            Foreground color (text color).
+        bg_color : str
+            Background color.
+        file_type : str | None, optional
+            Type of file that the tool is being run on, by default None
+        """
+        # Calculate whitespace in order to center the banner message.
+        total_ws = banner_length - len(message)
+        left_ws = total_ws // 2
+        right_ws = total_ws - left_ws
+
+        if file_type:
+            # Calculate new left whitespace to allow room for prepended file type.
+            left_ws = left_ws - len(type_prepend[file_type])
+            banner_message = (
+                f"{type_prepend[file_type]}{' '*left_ws}{message}{' '*right_ws}"
+            )
+        else:
+            banner_message = f"{' '*left_ws}{message}{' '*right_ws}"
+        click.echo(click.style(banner_message, fg=fg_color, bg=bg_color))
+
+    def generate_run_summary(
+        run_tools: list[str], type_prepend: dict[str, str], file_type: str
+    ) -> None:
+        """Generate a summary of the run including the tools and file type being run on.
+
+        Parameters
+        ----------
+        run_tools : list[str]
+            List of development tools selected for the current run.
+        type_prepend : dict[str, str]
+            Mapping from `file_type` string to the prepend string.
+        file_type : str
+            Type of file that the tool is being run on
+        """
+        click.echo("Run Summary:")
+        if len(run_tools) == 1:
+            click.echo(f"Tool(s): {run_tools[0]}")
+        else:
+            click.echo(f"Tool(s): {', '.join(run_tools)}")
+        if file_type == "all":
+            click.echo(f"File Type(s): {' and '.join(type_prepend.values())}")
+        else:
+            click.echo(f"File Type(s): {type_prepend[file_type]}")
 
     # Input Validation -----------------------------------------------------------------
     if markdown and markdown_only:
@@ -137,37 +195,52 @@ def tools(markdown, markdown_only, skip, file_type, filenames):
                 run_tools.remove(tool)
 
     # Run Dev Tools --------------------------------------------------------------------
-    click.clear()
+    # click.clear()
     create_banner(
-        "RUNNING DEV TOOLS", header_banner_length, fg="black", bg="bright_cyan"
+        "RUNNING DEV TOOLS",
+        banner_length=header_banner_len,
+        type_prepend=type_prepend,
+        fg_color="black",
+        bg_color="bright_cyan",
     )
 
-    click.echo(f"Tools to Run: {run_tools}")
+    generate_run_summary(run_tools, type_prepend, file_type)
 
     if file_type == "all":
-        file_type = ["nb", "py"]
+        file_type_list = ["nb", "py"]
     else:
-        file_type = [file_type]
+        file_type_list = [file_type]
 
-    for ft in file_type:
+    for ft in file_type_list:
         for tool in run_tools:
             if ft == "nb":
                 create_banner(
-                    f"Running {tool}", tool_banner_length, fg="black", bg="bright_green"
+                    f"Running {tool}",
+                    banner_length=tool_banner_len,
+                    type_prepend=type_prepend,
+                    fg_color="black",
+                    bg_color="bright_green",
+                    file_type=ft,
                 )
                 subprocess.run(["nbqa", tool, "."])
             elif ft == "py":
                 if tool != "blacken-docs":
                     create_banner(
                         f"Running {tool}",
-                        tool_banner_length,
-                        fg="black",
-                        bg="bright_blue",
+                        banner_length=tool_banner_len,
+                        type_prepend=type_prepend,
+                        fg_color="black",
+                        bg_color="bright_blue",
+                        file_type=ft,
                     )
                     subprocess.run([tool, "."])
 
     create_banner(
-        "DEV TOOLS COMPLETE", header_banner_length, fg="black", bg="bright_cyan"
+        "DEV TOOLS COMPLETE",
+        banner_length=header_banner_len,
+        type_prepend=type_prepend,
+        fg_color="black",
+        bg_color="bright_cyan",
     )
 
 
