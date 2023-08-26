@@ -23,13 +23,13 @@ isort = "^5.10.1"
 flake8 = "^5.0.4"
 interrogate = "^1.5.0"
 flake8-docstrings = "^1.6.0"
-mypy = "^0.991"
 sphinx = "^5.3.0"
 docrepr = "^0.2.0"
 pandas-stubs = {version = "^1.5.1", python = ">=3.10,<3.12"}
 nbqa = "^1.6.0"
 blacken-docs = "^1.12.1"
 click = "^8.1.6"
+mypy = "^1.5.1"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.2.0"
@@ -52,8 +52,7 @@ python_version = "3.10"
 [[tool.mypy.overrides]]
 module = [
     "dash.*",
-    "plotly.*",
-    "ibis.*"
+    "plotly.*"
 ]
 ignore_missing_imports = true
 
