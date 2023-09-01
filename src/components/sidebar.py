@@ -10,20 +10,7 @@ import re
 
 from dash import Input, Output, State, callback, dcc, html, page_registry
 
-from utils.constants import (
-    BG_COLOR_DARK,
-    BG_COLOR_LIGHT,
-    HOVER_COLOR_DARK,
-    ID_BACKGROUND_ICON,
-    ID_BACKGROUND_LINK,
-    ID_DASHBOARD_ICON,
-    ID_DASHBOARD_LINK,
-    ID_HOME_ICON,
-    ID_HOME_LINK,
-    ID_LOCATION,
-    TEXT_COLOR_DARK,
-    TEXT_COLOR_LIGHT,
-)
+from utils.constants import COLORS, IDS, SIDEBAR_PAGE_NAMES
 from utils.funcs import update_utility_classes
 
 
@@ -49,6 +36,7 @@ def create_sidebar_component() -> html.Div:
         href="/",
     )
 
+    # `page_links` is a list comprehension.
     page_links = [
         dcc.Link(
             [
@@ -72,7 +60,7 @@ def create_sidebar_component() -> html.Div:
         # `page_links` has to be unpacked since it is a list (i.e. the `children`
         # argument can be a list but it must not contain a list as an element).
         [
-            dcc.Location(id=ID_LOCATION, refresh=False),
+            dcc.Location(id=IDS["location"], refresh=False),
             heading,
             *page_links,
         ],
@@ -83,47 +71,27 @@ def create_sidebar_component() -> html.Div:
 @callback(
     output={
         "output_icon_src": {
-            "home": Output(component_id=ID_HOME_ICON, component_property="src"),
-            "background": Output(
-                component_id=ID_BACKGROUND_ICON, component_property="src"
-            ),
-            "dashboard": Output(
-                component_id=ID_DASHBOARD_ICON, component_property="src"
-            ),
+            page: Output(component_id=IDS[page]["icon"], component_property="src")
+            for page in SIDEBAR_PAGE_NAMES
         },
         "output_link_class": {
-            "home": Output(component_id=ID_HOME_LINK, component_property="className"),
-            "background": Output(
-                component_id=ID_BACKGROUND_LINK, component_property="className"
-            ),
-            "dashboard": Output(
-                component_id=ID_DASHBOARD_LINK, component_property="className"
-            ),
+            page: Output(component_id=IDS[page]["link"], component_property="className")
+            for page in SIDEBAR_PAGE_NAMES
         },
     },
     inputs={
-        "pathname": Input(component_id=ID_LOCATION, component_property="pathname"),
+        "pathname": Input(component_id=IDS["location"], component_property="pathname"),
         "input_icon_src": {
-            "home": State(component_id=ID_HOME_ICON, component_property="src"),
-            "background": State(
-                component_id=ID_BACKGROUND_ICON, component_property="src"
-            ),
-            "dashboard": State(
-                component_id=ID_DASHBOARD_ICON, component_property="src"
-            ),
+            page: State(component_id=IDS[page]["icon"], component_property="src")
+            for page in SIDEBAR_PAGE_NAMES
         },
         "input_link_class": {
-            "home": State(component_id=ID_HOME_LINK, component_property="className"),
-            "background": State(
-                component_id=ID_BACKGROUND_LINK, component_property="className"
-            ),
-            "dashboard": State(
-                component_id=ID_DASHBOARD_LINK, component_property="className"
-            ),
+            page: State(component_id=IDS[page]["link"], component_property="className")
+            for page in SIDEBAR_PAGE_NAMES
         },
     },
 )
-def update_page_link_styling(pathname, input_icon_src, input_link_class):
+def update_sidebar_style(pathname, input_icon_src, input_link_class):
     """Update icons and link colors when a link is active.
 
     Parameters
@@ -168,66 +136,102 @@ def update_page_link_styling(pathname, input_icon_src, input_link_class):
             home_icon_src = home_page["icon_dark"]
             home_link_class = update_utility_classes(
                 current_classes=home_link_class,
-                remove_classes=[BG_COLOR_DARK, TEXT_COLOR_LIGHT, HOVER_COLOR_DARK],
-                add_classes=[BG_COLOR_LIGHT, TEXT_COLOR_DARK],
+                remove_classes=[
+                    COLORS["bg_color_dark"],
+                    COLORS["text_color_light"],
+                    COLORS["hover_color_dark"],
+                ],
+                add_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
             )
         if icon_color["background"] == "dark":
             background_icon_src = background_page["icon_light"]
             background_link_class = update_utility_classes(
                 current_classes=background_link_class,
-                remove_classes=[BG_COLOR_LIGHT, TEXT_COLOR_DARK],
-                add_classes=[BG_COLOR_DARK, TEXT_COLOR_LIGHT, HOVER_COLOR_DARK],
+                remove_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
+                add_classes=[
+                    COLORS["bg_color_dark"],
+                    COLORS["text_color_light"],
+                    COLORS["hover_color_dark"],
+                ],
             )
         if icon_color["dashboard"] == "dark":
             dashboard_icon_src = dashboard_page["icon_light"]
             dashboard_link_class = update_utility_classes(
                 current_classes=dashboard_link_class,
-                remove_classes=[BG_COLOR_LIGHT, TEXT_COLOR_DARK],
-                add_classes=[BG_COLOR_DARK, TEXT_COLOR_LIGHT, HOVER_COLOR_DARK],
+                remove_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
+                add_classes=[
+                    COLORS["bg_color_dark"],
+                    COLORS["text_color_light"],
+                    COLORS["hover_color_dark"],
+                ],
             )
     elif pathname == background_page["relative_path"]:
         if icon_color["home"] == "dark":
             home_icon_src = home_page["icon_light"]
             home_link_class = update_utility_classes(
                 current_classes=home_link_class,
-                remove_classes=[BG_COLOR_LIGHT, TEXT_COLOR_DARK],
-                add_classes=[BG_COLOR_DARK, TEXT_COLOR_LIGHT, HOVER_COLOR_DARK],
+                remove_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
+                add_classes=[
+                    COLORS["bg_color_dark"],
+                    COLORS["text_color_light"],
+                    COLORS["hover_color_dark"],
+                ],
             )
         if icon_color["background"] != "dark":
             background_icon_src = background_page["icon_dark"]
             background_link_class = update_utility_classes(
                 current_classes=background_link_class,
-                remove_classes=[BG_COLOR_DARK, TEXT_COLOR_LIGHT, HOVER_COLOR_DARK],
-                add_classes=[BG_COLOR_LIGHT, TEXT_COLOR_DARK],
+                remove_classes=[
+                    COLORS["bg_color_dark"],
+                    COLORS["text_color_light"],
+                    COLORS["hover_color_dark"],
+                ],
+                add_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
             )
         if icon_color["dashboard"] == "dark":
             dashboard_icon_src = dashboard_page["icon_light"]
             dashboard_link_class = update_utility_classes(
                 current_classes=dashboard_link_class,
-                remove_classes=[BG_COLOR_LIGHT, TEXT_COLOR_DARK],
-                add_classes=[BG_COLOR_DARK, TEXT_COLOR_LIGHT, HOVER_COLOR_DARK],
+                remove_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
+                add_classes=[
+                    COLORS["bg_color_dark"],
+                    COLORS["text_color_light"],
+                    COLORS["hover_color_dark"],
+                ],
             )
     elif pathname == dashboard_page["relative_path"]:
         if icon_color["home"] == "dark":
             home_icon_src = home_page["icon_light"]
             home_link_class = update_utility_classes(
                 current_classes=home_link_class,
-                remove_classes=[BG_COLOR_LIGHT, TEXT_COLOR_DARK],
-                add_classes=[BG_COLOR_DARK, TEXT_COLOR_LIGHT, HOVER_COLOR_DARK],
+                remove_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
+                add_classes=[
+                    COLORS["bg_color_dark"],
+                    COLORS["text_color_light"],
+                    COLORS["hover_color_dark"],
+                ],
             )
         if icon_color["background"] == "dark":
             background_icon_src = background_page["icon_light"]
             background_link_class = update_utility_classes(
                 current_classes=background_link_class,
-                remove_classes=[BG_COLOR_LIGHT, TEXT_COLOR_DARK],
-                add_classes=[BG_COLOR_DARK, TEXT_COLOR_LIGHT, HOVER_COLOR_DARK],
+                remove_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
+                add_classes=[
+                    COLORS["bg_color_dark"],
+                    COLORS["text_color_light"],
+                    COLORS["hover_color_dark"],
+                ],
             )
         if icon_color["dashboard"] != "dark":
             dashboard_icon_src = dashboard_page["icon_dark"]
             dashboard_link_class = update_utility_classes(
                 current_classes=dashboard_link_class,
-                remove_classes=[BG_COLOR_DARK, TEXT_COLOR_LIGHT, HOVER_COLOR_DARK],
-                add_classes=[BG_COLOR_LIGHT, TEXT_COLOR_DARK],
+                remove_classes=[
+                    COLORS["bg_color_dark"],
+                    COLORS["text_color_light"],
+                    COLORS["hover_color_dark"],
+                ],
+                add_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
             )
 
     return {

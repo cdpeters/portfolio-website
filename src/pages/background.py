@@ -9,21 +9,16 @@ Variables:
 
 from dash import dcc, html, register_page
 
-from utils.constants import (
-    BACKGROUND_ICON_DARK,
-    BACKGROUND_ICON_LIGHT,
-    ID_BACKGROUND_ICON,
-    ID_BACKGROUND_LINK,
-)
+from utils.constants import ICONS, IDS
 
 register_page(
     __name__,
     sidebar=True,
     order=1,
-    id_icon=ID_BACKGROUND_ICON,
-    id_link=ID_BACKGROUND_LINK,
-    icon_light=BACKGROUND_ICON_LIGHT,
-    icon_dark=BACKGROUND_ICON_DARK,
+    id_icon=IDS["background"]["icon"],
+    id_link=IDS["background"]["link"],
+    icon_light=ICONS["background"]["light"],
+    icon_dark=ICONS["background"]["dark"],
 )
 
 markdown = dcc.Markdown(

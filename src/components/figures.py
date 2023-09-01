@@ -13,7 +13,7 @@ import plotly.express as px
 from dash import dcc
 
 from data.process_data import sample_data, transformed_measurement
-from utils.constants import ID_FIGURE_BAR, ID_FIGURE_PRECIP, ID_FIGURE_TEMP
+from utils.constants import IDS
 
 # Create `Graph` component containing a bar chart from `sample_data`.
 bar_chart = px.bar(
@@ -38,7 +38,7 @@ bar_chart.update_layout(
 )
 
 bar_chart = dcc.Graph(
-    id=ID_FIGURE_BAR,
+    id=IDS["figure_bar"],
     figure=bar_chart,
     config={
         "displayModeBar": False,
@@ -70,7 +70,7 @@ avg_temp_line_chart.update_layout(
 )
 
 avg_temp_line_chart = dcc.Graph(
-    id=ID_FIGURE_TEMP,
+    id=IDS["figure_temp"],
     figure=avg_temp_line_chart,
     config={
         "displayModeBar": False,
@@ -102,7 +102,7 @@ avg_precip_line_chart.update_layout(
 )
 
 avg_precip_line_chart = dcc.Graph(
-    id=ID_FIGURE_PRECIP,
+    id=IDS["figure_precip"],
     figure=avg_precip_line_chart,
     config={
         "displayModeBar": False,

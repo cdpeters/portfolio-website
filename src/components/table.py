@@ -8,10 +8,10 @@ from dash.dash_table import DataTable
 from dash.dash_table.Format import Format, Scheme
 
 from data.process_data import transformed_measurement
-from utils.constants import ID_TABLE_CLIMATE
+from utils.constants import IDS
 
 hawaii_climate_table = DataTable(
-    id=ID_TABLE_CLIMATE,
+    id=IDS["table_climate"],
     data=transformed_measurement.to_dict(orient="records"),
     # Each column requires at least `name` and `id`. `name` is the string that will be
     # used as the column header. `id` is the name of the column from the DataFrame from
