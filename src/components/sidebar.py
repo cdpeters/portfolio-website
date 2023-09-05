@@ -1,14 +1,20 @@
 """Build a sidebar component with page links.
 
-The create sidebar function takes in the page registry and builds page links. There is
-also a header that redirects to the home page of the app.
+The `create_sidebar_component` function takes in the page registry and builds page
+links. There is also a header that redirects to the home page of the app. The callback
+`update_sidebar_style` updates the styling of the page links when the link is active.
 
 Functions:
     create_sidebar_component
+
+Callbacks:
+    update_sidebar_style
 """
 import re
 
+import pandas as pd
 from dash import Input, Output, State, callback, dcc, html, page_registry
+from rich import print
 
 from utils.constants import COLORS, IDS, SIDEBAR_PAGE_NAMES
 from utils.funcs import update_utility_classes
@@ -25,12 +31,17 @@ def create_sidebar_component() -> html.Div:
     -------
     html.Div
         A sidebar with a link to each page.
+
+    Notes
+    -----
+    `create_sidebar_component` is a function in order to use `page_registry` within it.
+    See the documentation for Plotly Dash.
     """
     heading = dcc.Link(
         [
             html.Div(
-                "Dash Test App",
-                className="py-3 text-center font-semibold text-emerald-50",
+                "Code Portfolio",
+                className="py-1.5 text-center font-semibold text-emerald-50",
             ),
         ],
         href="/",
@@ -40,17 +51,21 @@ def create_sidebar_component() -> html.Div:
     page_links = [
         dcc.Link(
             [
+                # Page icon.
                 html.Img(
                     id=page["id_icon"],
                     src=page["icon_light"],
                     className="aspect-square w-3",
                 ),
-                html.Div(page["name"], className="text-sm text-inherit bg-inherit"),
+                # Page name.
+                html.Div(
+                    page["name"],
+                    className="text-inherit bg-inherit break-words",
+                ),
             ],
             id=page["id_link"],
             href=page["relative_path"],
-            className="""px-4 py-2 flex space-x-2 items-center bg-slate-800
-            text-emerald-50 hover:bg-slate-700 """,
+            className="px-2 py-2 flex space-x-2 items-center text-xs text-emerald-50 hover:bg-slate-700 hover:px-2.5 transition-all",
         )
         for page in page_registry.values()
         if page.get("sidebar")
@@ -60,11 +75,12 @@ def create_sidebar_component() -> html.Div:
         # `page_links` has to be unpacked since it is a list (i.e. the `children`
         # argument can be a list but it must not contain a list as an element).
         [
+            # Location needed to collect the current path for the styling callback.
             dcc.Location(id=IDS["location"], refresh=False),
             heading,
             *page_links,
         ],
-        className="bg-slate-800 h-screen w-32 fixed overflow-auto",
+        className="fixed top-0 left-0 h-screen w-32 bg-slate-800 overflow-auto",
     )
 
 
@@ -108,141 +124,55 @@ def update_sidebar_style(pathname, input_icon_src, input_link_class):
     dict[str, dict[str, str]]
         Contains the updated icon src attributes and page link class attributes.
     """
-    home_page = page_registry["pages.home"]
-    background_page = page_registry["pages.background"]
-    dashboard_page = page_registry["pages.dashboard"]
+    icon_src = input_icon_src.copy()
+    link_class = input_link_class.copy()
 
-    # Assign icon src attribute variables that will be updated below if necessary.
-    home_icon_src = input_icon_src["home"]
-    background_icon_src = input_icon_src["background"]
-    dashboard_icon_src = input_icon_src["dashboard"]
-    # Assign page link class attribute variables that will be updated below if
-    # necessary.
-    home_link_class = input_link_class["home"]
-    background_link_class = input_link_class["background"]
-    dashboard_link_class = input_link_class["dashboard"]
+    # Reset previously active page link to styling for inactive state ------------------
+    iis = pd.Series(link_class)
+    pattern_active = COLORS["bg_color_light"]
+    is_active = iis[iis.str.contains(pattern_active)]
 
-    # Capture the color of the icon from the icon's src attribute for each page.
-    pattern = r"_([a-z]+)\."
-    icon_color = {
-        page: re.search(pattern, icon_src).group(1)
-        for page, icon_src in input_icon_src.items()
-    }
+    # If there is a page with a dark icon, change it back to light icon.
+    if not is_active.empty:
+        previous_pathname = is_active.index[0]
+        icon_src[previous_pathname] = re.sub(
+            r"_dark\.", "_light.", icon_src[previous_pathname]
+        )
+        link_class[previous_pathname] = update_utility_classes(
+            current_classes=is_active.loc[previous_pathname],
+            remove_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
+            add_classes=[
+                COLORS["text_color_light"],
+                COLORS["hover_color_dark"],
+            ],
+            ignore_prefix_warning=True,
+        )
+    else:
+        previous_pathname = None
 
-    # Update the color of the icon and the color styling of the link as a whole
-    # (background color and text color) based on the current pathname.
-    if pathname == home_page["relative_path"]:
-        if icon_color["home"] != "dark":
-            home_icon_src = home_page["icon_dark"]
-            home_link_class = update_utility_classes(
-                current_classes=home_link_class,
-                remove_classes=[
-                    COLORS["bg_color_dark"],
-                    COLORS["text_color_light"],
-                    COLORS["hover_color_dark"],
-                ],
-                add_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
-            )
-        if icon_color["background"] == "dark":
-            background_icon_src = background_page["icon_light"]
-            background_link_class = update_utility_classes(
-                current_classes=background_link_class,
-                remove_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
-                add_classes=[
-                    COLORS["bg_color_dark"],
-                    COLORS["text_color_light"],
-                    COLORS["hover_color_dark"],
-                ],
-            )
-        if icon_color["dashboard"] == "dark":
-            dashboard_icon_src = dashboard_page["icon_light"]
-            dashboard_link_class = update_utility_classes(
-                current_classes=dashboard_link_class,
-                remove_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
-                add_classes=[
-                    COLORS["bg_color_dark"],
-                    COLORS["text_color_light"],
-                    COLORS["hover_color_dark"],
-                ],
-            )
-    elif pathname == background_page["relative_path"]:
-        if icon_color["home"] == "dark":
-            home_icon_src = home_page["icon_light"]
-            home_link_class = update_utility_classes(
-                current_classes=home_link_class,
-                remove_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
-                add_classes=[
-                    COLORS["bg_color_dark"],
-                    COLORS["text_color_light"],
-                    COLORS["hover_color_dark"],
-                ],
-            )
-        if icon_color["background"] != "dark":
-            background_icon_src = background_page["icon_dark"]
-            background_link_class = update_utility_classes(
-                current_classes=background_link_class,
-                remove_classes=[
-                    COLORS["bg_color_dark"],
-                    COLORS["text_color_light"],
-                    COLORS["hover_color_dark"],
-                ],
-                add_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
-            )
-        if icon_color["dashboard"] == "dark":
-            dashboard_icon_src = dashboard_page["icon_light"]
-            dashboard_link_class = update_utility_classes(
-                current_classes=dashboard_link_class,
-                remove_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
-                add_classes=[
-                    COLORS["bg_color_dark"],
-                    COLORS["text_color_light"],
-                    COLORS["hover_color_dark"],
-                ],
-            )
-    elif pathname == dashboard_page["relative_path"]:
-        if icon_color["home"] == "dark":
-            home_icon_src = home_page["icon_light"]
-            home_link_class = update_utility_classes(
-                current_classes=home_link_class,
-                remove_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
-                add_classes=[
-                    COLORS["bg_color_dark"],
-                    COLORS["text_color_light"],
-                    COLORS["hover_color_dark"],
-                ],
-            )
-        if icon_color["background"] == "dark":
-            background_icon_src = background_page["icon_light"]
-            background_link_class = update_utility_classes(
-                current_classes=background_link_class,
-                remove_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
-                add_classes=[
-                    COLORS["bg_color_dark"],
-                    COLORS["text_color_light"],
-                    COLORS["hover_color_dark"],
-                ],
-            )
-        if icon_color["dashboard"] != "dark":
-            dashboard_icon_src = dashboard_page["icon_dark"]
-            dashboard_link_class = update_utility_classes(
-                current_classes=dashboard_link_class,
-                remove_classes=[
-                    COLORS["bg_color_dark"],
-                    COLORS["text_color_light"],
-                    COLORS["hover_color_dark"],
-                ],
-                add_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
-            )
+    # Update current active page link to styling for active state ----------------------
+    if pathname == "/":
+        page = "home"
+    else:
+        page = pathname.replace("/", "")
+
+    # Try/except is used because it is possible to enter a route that doesn't exist,
+    # resulting in a KeyError when trying to access that `page` name.
+    try:
+        icon_src[page] = re.sub(r"_light\.", "_dark.", icon_src[page])
+        link_class[page] = update_utility_classes(
+            current_classes=link_class[page],
+            remove_classes=[
+                COLORS["text_color_light"],
+                COLORS["hover_color_dark"],
+            ],
+            add_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
+            ignore_prefix_warning=True,
+        )
+    except KeyError:
+        print(f"The page route '{page}' does not exist.")
 
     return {
-        "output_icon_src": {
-            "home": home_icon_src,
-            "background": background_icon_src,
-            "dashboard": dashboard_icon_src,
-        },
-        "output_link_class": {
-            "home": home_link_class,
-            "background": background_link_class,
-            "dashboard": dashboard_link_class,
-        },
+        "output_icon_src": {**icon_src},
+        "output_link_class": {**link_class},
     }

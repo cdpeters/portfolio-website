@@ -21,6 +21,7 @@ register_page(
     __name__,
     sidebar=True,
     order=2,
+    name="Dashboard",
     id_icon=IDS["dashboard"]["icon"],
     id_link=IDS["dashboard"]["link"],
     icon_light=ICONS["dashboard"]["light"],

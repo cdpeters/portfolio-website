@@ -26,15 +26,12 @@ Constants:
 """
 
 from pathlib import Path
+from typing import Any
 
 import tomli
 
 # list of pages to be include in the sidebar.
-SIDEBAR_PAGE_NAMES = (
-    "home",
-    "background",
-    "dashboard",
-)
+SIDEBAR_PAGE_NAMES = ("home", "background", "dashboard", "another")
 
 
 # Load secrets.toml --------------------------------------------------------------------
@@ -42,6 +39,7 @@ SIDEBAR_PAGE_NAMES = (
 # drive collaboration folder and to the project's data directory. `parents[2]` is the
 # 3rd parent (since index 2 is 3rd element) of the file path for this module: the
 # project's root directory `dash-test-app`.
+GOOGLE_DRIVE_DIR: Path | None
 try:
     with open(Path(__file__).parents[2] / "secrets.toml", "rb") as f:
         secrets = tomli.load(f)
@@ -55,10 +53,11 @@ DATA_DIR = Path(__file__).parents[2] / "data"
 
 
 # External Links -----------------------------------------------------------------------
-APP_SOURCE_CODE_URL = "https://github.com/cdpeters/dash-test-app"
+APP_SOURCE_CODE_URL = "https://github.com/cdpeters/portfolio-website"
 
 
 # Logos and Icons ----------------------------------------------------------------------
+ICONS: dict[str, Any]
 ICONS = {
     page: {
         "dark": f"/assets/images/{page}_dark.svg",
@@ -73,6 +72,7 @@ ICONS["github"] = "/assets/images/github.svg"
 
 # Component IDs ------------------------------------------------------------------------
 # Page IDs.
+IDS: dict[str, Any]
 IDS = {
     page: {
         "icon": f"{page}-icon",
