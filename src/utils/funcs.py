@@ -82,8 +82,10 @@ def update_utility_classes(
 
             # Capture the prefix of the incoming add class.
             try:
-                prefix = re.search(prefix_pattern, add_class).group(1)
-            except AttributeError as err:
+                match = re.search(prefix_pattern, add_class)
+                assert match is not None
+                prefix = match.group(1)
+            except AssertionError as err:
                 raise RuntimeError(
                     f"The string '{add_class}', from the `add_classes` argument, is "
                     f"not a valid utility class."
@@ -113,3 +115,8 @@ def update_utility_classes(
                     )
             current_class_list.append(add_class)
     return " ".join(current_class_list)
+
+
+# def update_page_link_style(pathname):
+
+#     return  update_utility_classes()

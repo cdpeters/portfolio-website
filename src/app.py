@@ -23,18 +23,15 @@ server = app.server
 # Place the navbar and the container for page content within the app.
 app.layout = html.Div(
     [
-        # Sidebar.
         create_sidebar_component(),
         # Main Content.
         html.Div(
             [
                 # Location for page contents.
                 dash.page_container,
-                # Footer.
                 footer_component,
             ],
-            className="""ml-32 bg-gradient-to-br from-white to-slate-300 h-auto
-            flex-grow""",
+            className="ml-32 bg-gradient-to-br from-white to-slate-300 h-auto flex-grow",
         ),
     ],
     className="flex",

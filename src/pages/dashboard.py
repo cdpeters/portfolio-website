@@ -13,12 +13,7 @@ from dash import html, register_page
 
 from components.figures import avg_precip_line_chart, avg_temp_line_chart, bar_chart
 from components.table import hawaii_climate_table
-from utils.constants import (
-    DASHBOARD_ICON_DARK,
-    DASHBOARD_ICON_LIGHT,
-    ID_DASHBOARD_ICON,
-    ID_DASHBOARD_LINK,
-)
+from utils.constants import ICONS, IDS
 
 # Needed for the app to see this module as a page. The `navbar` argument is included so
 # that this page will be added as a page link in the navbar.
@@ -26,10 +21,11 @@ register_page(
     __name__,
     sidebar=True,
     order=2,
-    id_icon=ID_DASHBOARD_ICON,
-    id_link=ID_DASHBOARD_LINK,
-    icon_light=DASHBOARD_ICON_LIGHT,
-    icon_dark=DASHBOARD_ICON_DARK,
+    name="Dashboard",
+    id_icon=IDS["dashboard"]["icon"],
+    id_link=IDS["dashboard"]["link"],
+    icon_light=ICONS["dashboard"]["light"],
+    icon_dark=ICONS["dashboard"]["dark"],
 )
 
 dashboard_grid = html.Div(

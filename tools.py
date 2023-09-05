@@ -132,6 +132,8 @@ def tools(
         right_ws = total_ws - left_ws
 
         if file_type:
+            # assert to address mypy [union-attr] error.
+            assert prepend is not None
             # Calculate new left whitespace to allow room for prepended file type.
             left_ws = left_ws - len(prepend[file_type]) - 1
             banner_message = (

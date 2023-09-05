@@ -14,10 +14,10 @@ from utils.constants import ICONS, IDS
 register_page(
     __name__,
     sidebar=True,
-    order=1,
-    name="Background",
-    id_icon=IDS["background"]["icon"],
-    id_link=IDS["background"]["link"],
+    order=3,
+    name="Another",
+    id_icon=IDS["another"]["icon"],
+    id_link=IDS["another"]["link"],
     icon_light=ICONS["background"]["light"],
     icon_dark=ICONS["background"]["dark"],
 )
@@ -49,16 +49,24 @@ markdown = dcc.Markdown(
 
     > Note. This is a link to the home page of the [*Dash Test App*](/)
 
+    ![book](/assets/images/PyBer_summary.svg)
+
+    <div align="center">
+        <img
+            src="/assets/images/PyBer_summary.svg"
+        />
+    </div>
     This concludes the markdown example. Any experiments with markdown syntax can be
     done on this page to see the output on the website.
     """,
+    dangerously_allow_html=True,
 )
 
 layout = html.Div(
     [
         html.Div(
             "Project Background",
-            className="py-1.5 flex justify-center bg-slate-700 text-emerald-50 font-semibold",
+            className="""py-1.5 flex justify-center bg-slate-700 text-emerald-50 font-semibold""",
         ),
         html.Div(
             [

@@ -6,30 +6,21 @@ Variables:
 
 from dash import dcc, html
 
-from utils.constants import APP_SOURCE_CODE_URL, DATA_COLLAB_LOGO, GITHUB_ICON
+from utils.constants import APP_SOURCE_CODE_URL, ICONS
 
 footer_component = html.Div(
     html.Div(
-        [
-            html.Div(
-                [
-                    html.Img(src=DATA_COLLAB_LOGO, className="aspect-square h-4"),
-                    html.Div("Data Collab", className="text-emerald-50"),
-                ],
-                className="px-3 flex space-x-1.5 items-center",
-            ),
-            dcc.Link(
-                [
-                    html.Img(src=GITHUB_ICON, className="aspect-square h-4"),
-                    html.Div("Source Code", className="text-emerald-50"),
-                ],
-                href=APP_SOURCE_CODE_URL,
-                refresh=True,
-                target="_blank",
-                className="px-3 flex space-x-1.5 items-center",
-            ),
-        ],
-        className="py-1.5 bg-slate-700 flex items-center justify-between text-sm",
+        dcc.Link(
+            [
+                html.Img(src=ICONS["github"], className="aspect-square h-3.5"),
+                html.Div("Portfolio Source", className="text-emerald-50 text-xs"),
+            ],
+            href=APP_SOURCE_CODE_URL,
+            refresh=True,
+            target="_blank",
+            className="px-3 py-1 flex space-x-1.5 items-center",
+        ),
+        className="flex items-center justify-between text-sm float-right",
     ),
-    className="fixed left-32 bottom-0 right-0 z-40",
+    className="fixed left-32 bottom-0 right-0 z-40 bg-slate-700",
 )

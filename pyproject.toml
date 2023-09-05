@@ -30,6 +30,7 @@ nbqa = "^1.6.0"
 blacken-docs = "^1.12.1"
 click = "^8.1.6"
 mypy = "^1.5.1"
+rich = "^13.5.2"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.2.0"
@@ -58,7 +59,7 @@ ignore_missing_imports = true
 
 [tool.nbqa.addopts]
 flake8 = [
-    "--extend-ignore=D100"
+    "--extend-ignore=D100,E501"
 ]
 interrogate = [
     "--ignore-module"
