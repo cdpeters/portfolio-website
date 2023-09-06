@@ -80,7 +80,7 @@ def create_sidebar_component() -> html.Div:
             heading,
             *page_links,
         ],
-        className="fixed top-0 left-0 h-screen w-32 bg-slate-800 overflow-auto",
+        className="hidden md:block fixed top-0 left-0 z-50 h-screen w-32 bg-slate-800 overflow-auto",
     )
 
 
