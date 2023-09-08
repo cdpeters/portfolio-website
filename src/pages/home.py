@@ -6,7 +6,7 @@ Variables:
 
 from dash import html, register_page
 
-from utils.constants import ICONS, IDS
+from utils.constants import IDS
 
 # Needed for the app to see this module as a page.
 register_page(
@@ -14,16 +14,15 @@ register_page(
     path="/",
     sidebar=True,
     order=0,
-    id_icon=IDS["home"]["icon"],
-    id_link=IDS["home"]["link"],
-    icon_light=ICONS["home"]["light"],
-    icon_dark=ICONS["home"]["dark"],
+    name="Home",
+    language="home",
+    id_link=IDS[__name__.replace("pages.", "")]["link"],
 )
 
 layout = html.Div(
     html.Div(
         "Welcome to the Dash Test App",
-        className="text-5xl pb-40 text-slate-700 xl:text-6xl",
+        className="pb-32 font-semibold text-center text-2xl md:text-4xl lg:text-5xl xl:text-6xl text-slate-700",
     ),
     className="flex items-center justify-center h-screen",
 )

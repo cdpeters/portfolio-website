@@ -14,8 +14,8 @@ from utils.constants import IDS
 register_page(
     __name__,
     sidebar=True,
-    order=1,
-    name="Background",
+    order=2,
+    name="Handbell Music",
     language="python",
     id_link=IDS[__name__.replace("pages.", "")]["link"],
 )
@@ -47,9 +47,17 @@ markdown = dcc.Markdown(
 
     > Note. This is a link to the home page of the [*Dash Test App*](/)
 
+    ![book](/assets/images/PyBer_summary.svg)
+
+    <div align="center">
+        <img
+            src="/assets/images/PyBer_summary.svg"
+        />
+    </div>
     This concludes the markdown example. Any experiments with markdown syntax can be
     done on this page to see the output on the website.
     """,
+    dangerously_allow_html=True,
 )
 
 layout = html.Div(
