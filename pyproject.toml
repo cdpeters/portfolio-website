@@ -13,24 +13,24 @@ sqlalchemy = "^1.4.44"
 tomli = "^2.0.1"
 ibis-framework = "^4.1.0"
 gunicorn = "^20.1.0"
+docrepr = "^0.2.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.12.0"
 ipykernel = "^6.18.0"
-jupyterlab = "^3.5.0"
 pre-commit = "^2.20.0"
 isort = "^5.10.1"
 flake8 = "^5.0.4"
 interrogate = "^1.5.0"
 flake8-docstrings = "^1.6.0"
-sphinx = "^5.3.0"
-docrepr = "^0.2.0"
 pandas-stubs = {version = "^1.5.1", python = ">=3.10,<3.12"}
 nbqa = "^1.6.0"
 blacken-docs = "^1.12.1"
 click = "^8.1.6"
 mypy = "^1.5.1"
 rich = "^13.5.2"
+jupyterlab = "^4.0.5"
+catppuccin-jupyterlab = "^0.2.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.2.0"
