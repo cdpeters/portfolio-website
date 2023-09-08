@@ -31,7 +31,7 @@ from typing import Any
 import tomli
 
 # list of pages to be include in the sidebar.
-SIDEBAR_PAGE_NAMES = ("home", "background", "dashboard", "another")
+SIDEBAR_PAGE_NAMES = ("home", "background", "handbell_music", "dashboard", "another")
 
 
 # Load secrets.toml --------------------------------------------------------------------
@@ -57,17 +57,7 @@ APP_SOURCE_CODE_URL = "https://github.com/cdpeters/portfolio-website"
 
 
 # Logos and Icons ----------------------------------------------------------------------
-ICONS: dict[str, Any]
-ICONS = {
-    page: {
-        "dark": f"/assets/images/{page}_dark.svg",
-        "light": f"/assets/images/{page}_light.svg",
-    }
-    for page in SIDEBAR_PAGE_NAMES
-}
-
-ICONS["data_collab"] = "/assets/images/data_collab.png"
-ICONS["github"] = "/assets/images/github.svg"
+ICONS = {"github": "/assets/images/github.svg"}
 
 
 # Component IDs ------------------------------------------------------------------------
@@ -75,17 +65,16 @@ ICONS["github"] = "/assets/images/github.svg"
 IDS: dict[str, Any]
 IDS = {
     page: {
-        "icon": f"{page}-icon",
-        "link": f"{page}-link",
+        "link": f"{page}_link",
     }
     for page in SIDEBAR_PAGE_NAMES
 }
 
-IDS["figure_bar"] = "figure-bar"
-IDS["figure_temp"] = "figure-temp"
-IDS["figure_precip"] = "figure-precip"
+IDS["figure_bar"] = "figure_bar"
+IDS["figure_temp"] = "figure_temp"
+IDS["figure_precip"] = "figure_precip"
 IDS["location"] = "location"
-IDS["table_climate"] = "table-climate"
+IDS["table_climate"] = "table_climate"
 
 
 # Frequently Used CSS Classes ----------------------------------------------------------

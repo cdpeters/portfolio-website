@@ -31,7 +31,7 @@ app.layout = html.Div(
                 dash.page_container,
                 footer_component,
             ],
-            className="md:ml-32 bg-gradient-to-br from-white to-slate-300 h-auto flex-grow",
+            className="md:ml-36 bg-gradient-to-br from-white to-slate-300 h-auto flex-grow",
         ),
     ],
     className="flex",

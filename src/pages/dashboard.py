@@ -13,19 +13,17 @@ from dash import html, register_page
 
 from components.figures import avg_precip_line_chart, avg_temp_line_chart, bar_chart
 from components.table import hawaii_climate_table
-from utils.constants import ICONS, IDS
+from utils.constants import IDS
 
 # Needed for the app to see this module as a page. The `navbar` argument is included so
 # that this page will be added as a page link in the navbar.
 register_page(
     __name__,
     sidebar=True,
-    order=2,
+    order=3,
     name="Dashboard",
-    id_icon=IDS["dashboard"]["icon"],
-    id_link=IDS["dashboard"]["link"],
-    icon_light=ICONS["dashboard"]["light"],
-    icon_dark=ICONS["dashboard"]["dark"],
+    language="javascript",
+    id_link=IDS[__name__.replace("pages.", "")]["link"],
 )
 
 dashboard_grid = html.Div(
@@ -54,11 +52,6 @@ dashboard_grid = html.Div(
 # `layout` is required for Dash multi-page apps.
 layout = html.Div(
     [
-        html.Div(
-            "Dashboard",
-            className="""py-1.5 flex justify-center bg-slate-700 text-emerald-50
-            font-semibold""",
-        ),
         html.Div(
             [
                 html.P(

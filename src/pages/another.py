@@ -9,17 +9,15 @@ Variables:
 
 from dash import dcc, html, register_page
 
-from utils.constants import ICONS, IDS
+from utils.constants import IDS
 
 register_page(
     __name__,
     sidebar=True,
-    order=3,
+    order=4,
     name="Another",
-    id_icon=IDS["another"]["icon"],
-    id_link=IDS["another"]["link"],
-    icon_light=ICONS["background"]["light"],
-    icon_dark=ICONS["background"]["dark"],
+    language="sql",
+    id_link=IDS[__name__.replace("pages.", "")]["link"],
 )
 
 markdown = dcc.Markdown(
@@ -64,10 +62,6 @@ markdown = dcc.Markdown(
 
 layout = html.Div(
     [
-        html.Div(
-            "Project Background",
-            className="""py-1.5 flex justify-center bg-slate-700 text-emerald-50 font-semibold""",
-        ),
         html.Div(
             [
                 html.P(
