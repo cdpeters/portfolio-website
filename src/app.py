@@ -31,12 +31,12 @@ app.layout = html.Div(
         # Page Content.
         html.Div(
             dash.page_container,
-            className="row-start-2 row-span-1 col-start-1 col-span-2 md:row-start-1 md:row-span-2 md:col-start-2 md:col-span-1 bg-gradient-to-br from-slate-50 from-20% via-slate-300 via-60% to-slate-400 overflow-auto",
+            className="col-span-2 col-start-1 row-span-1 row-start-2 overflow-auto bg-gradient-to-br from-slate-50 from-20% via-slate-300 via-60% to-slate-400 md:col-span-1 md:col-start-2 md:row-span-2 md:row-start-1",
         ),
         create_sidebar(),
         footer,
     ],
-    className="grid h-screen grid-rows-[2.5rem_1fr_1.5rem] grid-cols-[9rem_1fr]",
+    className="grid h-screen grid-cols-[9rem_1fr] grid-rows-[2.5rem_1fr_1.5rem]",
 )
 
 if __name__ == "__main__":

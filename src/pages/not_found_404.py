@@ -14,5 +14,5 @@ layout = html.Div(
         navigate the website.""",
         className="text-lg text-slate-700",
     ),
-    className="flex items-center justify-center h-screen",
+    className="flex h-screen items-center justify-center",
 )

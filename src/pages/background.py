@@ -57,7 +57,7 @@ layout = html.Div(
                 ),
                 markdown,
             ],
-            className="prose prose-sm prose-slate prose-headings:text-slate-700 mx-auto max-w-2xl px-2 py-4 lg:prose-base sm:px-4 md:px-6",
+            className="prose prose-sm prose-slate mx-auto max-w-2xl px-2 py-4 lg:prose-base prose-headings:text-slate-700 sm:px-4 md:px-6",
         ),
     ],
     className="h-[calc(100vh-1.5rem)]",

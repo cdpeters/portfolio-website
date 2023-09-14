@@ -77,7 +77,7 @@ def create_sidebar() -> html.Div:
             page["name"],
             id=page["id_page_link"],
             href=page["relative_path"],
-            className="py-1.5 pl-4 pr-2 text-left text-sm font-semibold text-emerald-50 hover:bg-slate-700 hover:pl-[1.12rem] hover:pr-1.5",
+            className="py-1.5 pl-4 pr-2 text-left text-sm font-semibold text-emerald-50 transition-transform hover:bg-slate-700 hover:pl-[1.12rem] hover:pr-1.5",
         )
 
         # Create the language key and its starting value if it does not exist yet.
@@ -93,7 +93,7 @@ def create_sidebar() -> html.Div:
     # section. All of the html for a given language section is contained within its
     # corresponding "section div".
     link_div = html.Div(non_language_links, className="flex flex-col")
-    section_div = html.Div(link_div, className="mt-3 ")
+    section_div = html.Div(link_div, className="mt-3")
 
     sections = [section_div]
 
