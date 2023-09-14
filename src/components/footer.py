@@ -1,23 +1,23 @@
 """Build a footer component with a link to the app source code on github.
 
 Variables:
-    footer_component
+    footer
 """
 
 from dash import dcc, html
 
 from utils.constants import APP_SOURCE_CODE_URL, ICONS
 
-footer_component = html.Div(
+footer = html.Div(
     dcc.Link(
         [
             html.Img(src=ICONS["github"], className="aspect-square h-3"),
-            html.Div("Portfolio Source", className="text-emerald-50 text-[0.625rem]"),
+            html.Span("Portfolio Source", className="text-[0.625rem] text-emerald-50"),
         ],
         href=APP_SOURCE_CODE_URL,
         refresh=True,
         target="_blank",
-        className="pr-1.5 py-1 flex space-x-1.5 items-center float-right",
+        className="float-right flex items-center space-x-1.5 py-1 pr-1.5",
     ),
-    className="fixed left-0 bottom-0 right-0 z-40 bg-slate-700",
+    className="col-span-2 col-start-1 row-span-1 row-start-3 flex items-center justify-end bg-slate-700 md:col-span-1 md:col-start-2 md:row-span-1 md:row-start-3",
 )
