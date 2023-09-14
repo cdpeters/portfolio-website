@@ -1,24 +1,27 @@
 """Build a sidebar component with page links.
 
-The `create_sidebar_component` function takes in the page registry and builds page links
+The `create_sidebar` function takes in the page registry and builds page links
 in sections based on the primary language of the project. There is also a header that
 redirects to the home page of the app. The callback `update_sidebar_style` updates the
 styling of the page links when the link is active.
 
 Functions:
-    create_sidebar_component
+    create_sidebar
 
 Callbacks:
     update_sidebar_style
+    toggle_page_links_visibility
 """
-import pandas as pd
-from dash import Input, Output, State, callback, dcc, html, page_registry
+import re
 
-from utils.constants import COLORS, IDS, SIDEBAR_PAGE_NAMES
+import pandas as pd
+from dash import Input, Output, State, callback, ctx, dcc, html, page_registry
+
+from utils.constants import COLORS, ICONS, IDS, PAGE_METADATA, SECTIONS
 from utils.funcs import update_utility_classes
 
 
-def create_sidebar_component() -> html.Div:
+def create_sidebar() -> html.Div:
     """Create the sidebar component with page links for navigation.
 
     `page_registry` page data is used to construct the sidebar's page links. A page is
@@ -32,92 +35,111 @@ def create_sidebar_component() -> html.Div:
 
     Notes
     -----
-    `create_sidebar_component` is a function (as opposed to simple named variable) in
+    `create_sidebar` is a function (as opposed to simple named variable) in
     order to use `page_registry` within it. See the documentation for Plotly Dash.
     """
-    site_heading = html.Div(
-        [
-            dcc.Link(
-                "Project Portfolio",
-                href="/",
-            ),
-        ],
-        className="py-2.5 px-2 text-center text-sm font-bold bg-slate-900 text-emerald-50",
-    )
-
+    pages = [page for page in page_registry.values() if page.get("sidebar")]
     # Build the sections based on language as a dictionary of the form:
     # {
     #     `language`: {
-    #         "heading": `language_heading`,
+    #         "heading": `section_heading`,
     #         "links": [`link`, ...],
     #     }
     # }
     # This allows for easy assembly of the `sections` list below.
-    language_sections = {}
-    for page in page_registry.values():
+    language_sections = dict()
+    non_language_links = list()
+    for page in pages:
         # Only include pages that are meant to be shown in the sidebar.
-        if page.get("sidebar"):
-            language = page["language"]
+        language = page["section"]
+        if language:
             language_title = language.title() if language != "sql" else language.upper()
-            language_heading = html.Div(
+            language_heading = html.Span(
                 language_title,
-                className="px-1.5 pt-2 pb-1 italic text-left text-slate-600 text-xs font-semibold",
+                className="text-left text-xs font-semibold italic text-slate-500",
+            )
+            dropdown_button = html.Button(
+                html.Img(
+                    id=IDS[f"section_{language}"]["icon"],
+                    src=ICONS["section_arrow"],
+                    className="aspect-square h-2.5 transition-transform",
+                ),
+                id=IDS[f"section_{language}"]["button"],
+                className="",
+                type="button",
+            )
+            heading = html.Div(
+                [language_heading, dropdown_button],
+                className="flex items-center justify-between px-1.5 pb-2.5 pt-3.5",
             )
 
-            link = dcc.Link(
-                page["name"],
-                id=page["id_link"],
-                href=page["relative_path"],
-                className="pl-4 pr-2 py-1.5 font-semibold text-sm text-left text-emerald-50 hover:bg-slate-700 hover:pl-[1.12rem] hover:pr-1.5 transition-all",
-            )
+        link = dcc.Link(
+            page["name"],
+            id=page["id_page_link"],
+            href=page["relative_path"],
+            className="py-1.5 pl-4 pr-2 text-left text-sm font-semibold text-emerald-50 hover:bg-slate-700 hover:pl-[1.12rem] hover:pr-1.5",
+        )
 
-            # Create the language key and its starting value if it does not exist yet.
-            if language not in language_sections:
-                language_sections[language] = {"heading": language_heading, "links": []}
+        # Create the language key and its starting value if it does not exist yet.
+        if language and (language not in language_sections):
+            language_sections[language] = {"heading": heading, "links": list()}
+
+        if language:
             language_sections[language]["links"].append(link)
+        else:
+            non_language_links.append(link)
 
     # Each element of `sections` is a "section div" representing an individual language
     # section. All of the html for a given language section is contained within its
     # corresponding "section div".
-    sections = []
+    link_div = html.Div(non_language_links, className="flex flex-col")
+    section_div = html.Div(link_div, className="mt-3 ")
+
+    sections = [section_div]
+
     for language, section_data in language_sections.items():
         # `link_div` contains all page links for projects belonging to the `language`
         # section.
-        link_div = html.Div(section_data["links"], className="flex flex-col")
+        hr = html.Hr(className="mx-1.5 border-slate-700")
+        link_div = html.Div(
+            section_data["links"],
+            className="flex flex-col",
+        )
+        link_div_wrapper = html.Div(
+            link_div, id=IDS[f"section_{language}"]["link_div"], className=""
+        )
 
-        section_div_class_name = "mt-3"
-        # Exclude a heading for the home page link (a stylistic choice).
-        if language == "home":
-            section_div = html.Div(link_div, className=section_div_class_name)
-        else:
-            section_div = html.Div(
-                [section_data["heading"], link_div], className=section_div_class_name
-            )
+        section_div = html.Div(
+            [hr, section_data["heading"], link_div_wrapper],
+            className="mt-3 flex flex-col",
+        )
+
         sections.append(section_div)
 
     return html.Div(
         # `page_links` has to be unpacked since it is a list (i.e. the `children`
         # argument can be a list but it must not contain a list as an element).
-        [
-            # Location needed to collect the current path for the styling callback.
-            dcc.Location(id=IDS["location"], refresh=False),
-            site_heading,
-            *sections,
-        ],
-        className="hidden md:block fixed top-0 left-0 z-50 h-screen md:w-36 bg-slate-800 overflow-auto",
+        sections,
+        id=IDS["sidebar"],
+        className="overflow-auto bg-slate-800 transition-transform duration-300 max-md:fixed max-md:bottom-0 max-md:left-0 max-md:top-10 max-md:w-36 max-md:-translate-x-full md:col-span-1 md:col-start-1 md:row-span-2 md:row-start-2 md:block",
     )
 
 
 @callback(
     output={
-        page: Output(component_id=IDS[page]["link"], component_property="className")
-        for page in SIDEBAR_PAGE_NAMES
+        page: Output(
+            component_id=IDS[f"page_{page}"]["link"], component_property="className"
+        )
+        for page in PAGE_METADATA
     },
     inputs={
         "pathname": Input(component_id=IDS["location"], component_property="pathname"),
         "input_link_class": {
-            page: State(component_id=IDS[page]["link"], component_property="className")
-            for page in SIDEBAR_PAGE_NAMES
+            page: State(
+                component_id=IDS[f"page_{page}"]["link"],
+                component_property="className",
+            )
+            for page in PAGE_METADATA
         },
     },
 )
@@ -147,21 +169,15 @@ def update_sidebar_style(
 
     # If there is a previously active page then its classes will be updated to make it
     # inactive.
-    previous_pathname: str | None
     if not is_active.empty:
-        previous_pathname = str(is_active.index[0])
-        assert previous_pathname is not None
-        link_class[previous_pathname] = update_utility_classes(
-            current_classes=is_active.loc[previous_pathname],
+        previous_page = str(is_active.index[0])
+        # assert previous_page is not None
+        link_class[previous_page] = update_utility_classes(
+            current_classes=is_active.loc[previous_page],
             remove_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
-            add_classes=[
-                COLORS["text_color_light"],
-                COLORS["hover_color_dark"],
-            ],
+            add_classes=[COLORS["text_color_light"], COLORS["hover_color_dark"]],
             ignore_prefix_warning=True,
         )
-    else:
-        previous_pathname = None
 
     # Update current active page link to styling for active state ----------------------
     if pathname == "/":
@@ -175,10 +191,7 @@ def update_sidebar_style(
     try:
         link_class[page] = update_utility_classes(
             current_classes=link_class[page],
-            remove_classes=[
-                COLORS["text_color_light"],
-                COLORS["hover_color_dark"],
-            ],
+            remove_classes=[COLORS["text_color_light"], COLORS["hover_color_dark"]],
             add_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
             ignore_prefix_warning=True,
         )
@@ -186,3 +199,96 @@ def update_sidebar_style(
         print(f"The page route '{page}' does not exist.")
 
     return link_class
+
+
+@callback(
+    output={
+        "section_icon_class": {
+            f"section_{language}": Output(
+                component_id=IDS[f"section_{language}"]["icon"],
+                component_property="className",
+            )
+            for language in SECTIONS
+        },
+        "link_div_class": {
+            f"section_{language}": Output(
+                component_id=IDS[f"section_{language}"]["link_div"],
+                component_property="className",
+            )
+            for language in SECTIONS
+        },
+    },
+    inputs={
+        "section_button_clicks": {
+            f"section_{language}": Input(
+                component_id=IDS[f"section_{language}"]["button"],
+                component_property="n_clicks",
+            )
+            for language in SECTIONS
+        },
+        "section_icon_class": {
+            f"section_{language}": State(
+                component_id=IDS[f"section_{language}"]["icon"],
+                component_property="className",
+            )
+            for language in SECTIONS
+        },
+        "link_div_class": {
+            f"section_{language}": State(
+                component_id=IDS[f"section_{language}"]["link_div"],
+                component_property="className",
+            )
+            for language in SECTIONS
+        },
+    },
+    prevent_initial_call=True,
+)
+def toggle_page_links_visibility(
+    section_button_clicks: dict[str, int],
+    section_icon_class: dict[str, str],
+    link_div_class: dict[str, str],
+) -> dict[str, dict[str, str]]:
+    """Show or hide page links per section on click.
+
+    Parameters
+    ----------
+    section_button_clicks : dict[str, int]
+        The `n_click` property for each section button.
+    section_icon_class : dict[str, str]
+        The `className` property for each section arrow icon.
+    link_div_class : dict[str, str]
+        The `className` property for each div containing the page links.
+
+    Returns
+    -------
+    dict[str, dict[str, str]]
+        Updated `section_icon_class` and `link_div_class` properties.
+    """
+    triggered_id = ctx.triggered_id.replace("_button", "")
+
+    rotate = "-rotate-90"
+    translate_in = "hidden"
+    translate_out = ""
+
+    pattern = rf"(?<!\S){rotate} ?"
+    rotate_match = re.search(pattern, section_icon_class[triggered_id])
+
+    if rotate_match:
+        section_icon_class[triggered_id] = section_icon_class[triggered_id].replace(
+            rotate_match[0], ""
+        )
+        link_div_class[triggered_id] = link_div_class[triggered_id].replace(
+            translate_in, translate_out
+        )
+    else:
+        section_icon_class[
+            triggered_id
+        ] = f"{rotate} {section_icon_class[triggered_id]}"
+        link_div_class[triggered_id] = link_div_class[triggered_id].replace(
+            translate_out, translate_in
+        )
+
+    return {
+        "section_icon_class": section_icon_class,
+        "link_div_class": link_div_class,
+    }

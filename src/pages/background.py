@@ -9,20 +9,14 @@ Variables:
 
 from dash import dcc, html, register_page
 
-from utils.constants import IDS
+from utils.constants import IDS, PAGE_METADATA
 
-register_page(
-    __name__,
-    sidebar=True,
-    order=1,
-    name="Background",
-    language="python",
-    id_link=IDS[__name__.replace("pages.", "")]["link"],
-)
+page = __name__.replace("pages.", "")
+register_page(__name__, **PAGE_METADATA[page], id_page_link=IDS[f"page_{page}"]["link"])
 
 markdown = dcc.Markdown(
     """
-    #### Markdown Element
+    # Markdown Element
 
     - This is a markdown element in Dash. All normal markdown features
     should work such as code snippets:
@@ -63,8 +57,8 @@ layout = html.Div(
                 ),
                 markdown,
             ],
-            className="py-4 mb-8 prose prose-slate max-w-2xl mx-auto",
+            className="prose prose-sm prose-slate prose-headings:text-slate-700 mx-auto max-w-2xl px-2 py-4 lg:prose-base sm:px-4 md:px-6",
         ),
     ],
-    className="min-h-screen",
+    className="h-[calc(100vh-1.5rem)]",
 )

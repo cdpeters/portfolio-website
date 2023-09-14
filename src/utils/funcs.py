@@ -115,8 +115,3 @@ def update_utility_classes(
                     )
             current_class_list.append(add_class)
     return " ".join(current_class_list)
-
-
-# def update_page_link_style(pathname):
-
-#     return  update_utility_classes()

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div id="header" class="md:w-36 md:justify-center">
+            <button id="menu-button" class="md:hidden" onclick="menu_click()" type="button">
+                <img id="menu-image" src="/src/assets/images/compass.svg" alt="">
+            </button>
+            <span id="header-title">Header</span>
+        </div>
+        <!-- CONTENT -->
+        <div id="content">
+            Content
+        </div>
+        <!-- SIDEBAR -->
+        <div id="sidebar" class="hidden">
+            <div>
+                Sidebar
+            </div>
+            <hr id="line-break">
+            <button id="page-button" type="button">Page Link</button>
+        </div>
+        <!-- FOOTER -->
+        <div id="footer">
+            <span id="footer-title">Footer</span>
+        </div>
+    </div>
+</body>
+<script>
+    function menu_click() {
+        const icon = document.getElementById("menu-image");
+        // rotate the icon
+        if (icon.classList.contains("-rotate-90")) {
+            icon.classList.remove("-rotate-90");
+        } else {
+            icon.classList.add("-rotate-90");
+        };
+
+        // show the sidebar
+        const sidebar = document.getElementById("sidebar")
+        if (sidebar.classList.contains("show")) {
+            sidebar.classList.remove("show");
+            sidebar.classList.add("hidden");
+        } else {
+            sidebar.classList.remove("hidden");
+            sidebar.classList.add("show");
+        };
+    }
+</script>
+</html>

@@ -14,6 +14,7 @@ tomli = "^2.0.1"
 ibis-framework = "^4.1.0"
 gunicorn = "^20.1.0"
 docrepr = "^0.2.0"
+openpyxl = "^3.1.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.12.0"
