@@ -7,6 +7,7 @@ defined.
 Constants:
     Names:
         PAGE_METADATA: Names of pages using their file names.
+        SECTIONS: Language sections in the sidebar.
 
     Data Directories:
         GOOGLE_DRIVE_DIR: Path to shared google drive collaboration folder.
@@ -31,15 +32,17 @@ from typing import Any
 import tomli
 from rich.pretty import pprint
 
+# Page and Section Data ----------------------------------------------------------------
 # list of pages to be include in the sidebar.
 src_data_dir = Path(__file__).parents[1].joinpath("data")
 
-with open(src_data_dir / "page_metadata.json") as f:
+with open(src_data_dir / "page_metadata.json", "r", encoding="utf-8") as f:
     PAGE_METADATA = json.load(f)
 
 SECTIONS = {
     metadata["section"] for metadata in PAGE_METADATA.values() if metadata["section"]
 }
+
 
 # Load secrets.toml --------------------------------------------------------------------
 # Use the file path (`__file__`) of this module to form the paths to both the google
@@ -105,6 +108,4 @@ COLORS = {
 }
 
 if __name__ == "__main__":
-    print("")
-    # pprint(PAGE_METADATA["home"]["section"], indent_guides=False, expand_all=True)
     pprint(IDS, indent_guides=False, expand_all=True)
