@@ -17,7 +17,7 @@ nav_button = html.Button(
     html.Img(
         id=IDS["header_nav"]["icon"],
         src=ICONS["nav"],
-        className="aspect-square h-[1.37rem] transition-transform duration-300",
+        className="aspect-square h-8 sm:h-6 transition-transform duration-300",
     ),
     id=IDS["header_nav"]["button"],
     className="md:hidden",
@@ -27,12 +27,12 @@ nav_button = html.Button(
 avatar = dcc.Link(
     "Project Portfolio",
     href="/",
-    className="py-2.5 text-center text-slate-50",
+    className="text-center text-xl sm:text-lg md:text-xl text-slate-50",
 )
 
 header = html.Div(
     [nav_button, avatar],
-    className="col-span-2 col-start-1 row-span-1 row-start-1 flex items-center justify-between bg-slate-900 px-3 md:col-span-1 md:col-start-1 md:row-span-1 md:row-start-1 md:w-36 md:justify-center",
+    className="max-sm:px-4 col-span-2 col-start-1 row-span-1 row-start-1 flex items-center justify-between bg-slate-900 px-3 md:col-span-1 md:col-start-1 md:row-span-1 md:row-start-1 md:justify-center",
 )
 
 

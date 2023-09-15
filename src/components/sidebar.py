@@ -56,13 +56,13 @@ def create_sidebar() -> html.Div:
             language_title = language.title() if language != "sql" else language.upper()
             language_heading = html.Span(
                 language_title,
-                className="text-left text-xs font-semibold italic text-slate-500",
+                className="text-left italic text-lg text-slate-500",
             )
             dropdown_button = html.Button(
                 html.Img(
                     id=IDS[f"section_{language}"]["icon"],
                     src=ICONS["section_arrow"],
-                    className="aspect-square h-2.5 transition-transform",
+                    className="aspect-square h-3.5 transition-transform",
                 ),
                 id=IDS[f"section_{language}"]["button"],
                 className="",
@@ -70,14 +70,14 @@ def create_sidebar() -> html.Div:
             )
             heading = html.Div(
                 [language_heading, dropdown_button],
-                className="flex items-center justify-between px-1.5 pb-2.5 pt-3.5",
+                className="flex items-center justify-between px-2.5 pb-2.5 pt-3.5",
             )
 
         link = dcc.Link(
             page["name"],
             id=page["id_page_link"],
             href=page["relative_path"],
-            className="py-1.5 pl-4 pr-2 text-left text-sm font-semibold text-emerald-50 transition-transform hover:bg-slate-700 hover:pl-[1.12rem] hover:pr-1.5",
+            className="py-1 pl-6 pr-2 text-left font-semibold text-emerald-50 transition-transform hover:bg-slate-700 hover:pl-7 hover:pr-1.5 text-xl sm:text-lg",
         )
 
         # Create the language key and its starting value if it does not exist yet.
@@ -94,13 +94,14 @@ def create_sidebar() -> html.Div:
     # corresponding "section div".
     link_div = html.Div(non_language_links, className="flex flex-col")
     section_div = html.Div(link_div, className="mt-3")
+    hr = html.Hr(className="max-md:hidden md:border-slate-700")
 
-    sections = [section_div]
+    sections = [hr, section_div]
 
     for language, section_data in language_sections.items():
         # `link_div` contains all page links for projects belonging to the `language`
         # section.
-        hr = html.Hr(className="mx-1.5 border-slate-700")
+        hr = html.Hr(className="mx-2 border-slate-700")
         link_div = html.Div(
             section_data["links"],
             className="flex flex-col",
@@ -121,7 +122,7 @@ def create_sidebar() -> html.Div:
         # argument can be a list but it must not contain a list as an element).
         sections,
         id=IDS["sidebar"],
-        className="overflow-auto bg-slate-800 transition-transform duration-300 max-md:fixed max-md:bottom-0 max-md:left-0 max-md:top-10 max-md:w-36 max-md:-translate-x-full md:col-span-1 md:col-start-1 md:row-span-2 md:row-start-2 md:block",
+        className="overflow-auto bg-slate-800 transition-transform duration-300 max-md:fixed max-md:bottom-0 max-md:left-0 max-md:-translate-x-full max-sm:top-[4rem] max-sm:w-[13rem] sm:max-md:top-[3rem] sm:max-md:w-[12rem] md:col-span-1 md:col-start-1 md:row-span-2 md:row-start-2",
     )
 
 

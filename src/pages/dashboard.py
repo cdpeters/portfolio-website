@@ -45,14 +45,14 @@ layout = html.Div(
     [
         html.Div(
             [
-                html.P(
+                html.Div(
                     "This is the Dash Test App dashboard.",
-                    className="mb-4 text-inherit",
+                    className="mb-4 text-inherit font-semibold text-lg",
                 ),
                 dashboard_grid,
             ],
             className="p-4 text-slate-700",
         ),
     ],
-    className="h-[calc(100vh-1.5rem)]",
+    className="flex items-center flex-col gap-4 h-[calc(100vh-1.75rem)]",
 )
