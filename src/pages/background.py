@@ -57,7 +57,7 @@ layout = html.Div(
                 ),
                 markdown,
             ],
-            className="prose prose-slate max-w-3xl px-4 pb-10 pt-6 sm:prose-lg xl:prose-xl prose-headings:text-slate-700 sm:px-7 md:px-8 xl:max-w-4xl",
+            className="prose prose-slate max-w-3xl px-4 pb-10 pt-6 max-xs:prose-sm sm:prose-lg xl:prose-xl prose-headings:text-slate-700 max-xs:max-w-[100%] sm:px-7 md:px-8 xl:max-w-4xl",
         ),
     ],
     className="flex items-center flex-col h-[calc(100vh-1.75rem)]",
