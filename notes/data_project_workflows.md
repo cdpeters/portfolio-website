@@ -64,7 +64,7 @@ ___
 		python ../tools.py
 		```
 
-[Return to Topics List](#topics)
+*[Return to Topics List](#topics)*
 
 ___
 
@@ -85,6 +85,26 @@ ___
 		python app.py
 		```
 
+#### Adding Pages
+##### Steps Required for All Pages
+- To add a new page to the app there are a few steps that need to be completed:
+	1. Add the page and its metadata to the `page_metadata.xlsx`
+	2. In the project's root directory, run the `page_metadata.py` file as a module to create the updated `json` file containing all of the page metadata:
+	```shell
+	python -m data.page_metadata
+	```
+	3. In the `src > pages` directory, copy a page and rename it with the `module_name` value that was used in `page_metadata.xlsx` for this new page
+##### Additional Steps Based on Page Type
+###### Generic Pages
+ - A page that does not contain a markdown element.
+	1. Remove the markdown element (this element is essentially a part of the page template and is not needed for a generic page)
+	2. Add content for the generic page
+###### Markdown Pages
+- A page that contains a markdown element
+	1. Add the raw markdown file associated with this new page to the `src > pages_markdown` directory
+	2. Adjust any links to be sure they work within this project structure. Since the app is run from the `src` directory, all links should be relative to that directory, not to the `src > pages_markdown` or `src > pages` directories
+	3. Add any assets (such as images) that the markdown file uses to the appropriate folder in the `src > assets` directory
+
 #### Adding Styles
 - There are three main places where style information can be added to the app and its components:
 	1. `tailwind` utility classes within Dash components using the `className` parameter.
@@ -93,14 +113,14 @@ ___
 - To update styles dynamically during runtime, create a `Dash` callback that has a `className` parameter of the html element of interest as its output and use the following function:
 	1. `update_utility_classes()` found in the `funcs.py` file in the `utils` folder.
 
-[Return to Topics List](#topics)
+*[Return to Topics List](#topics)*
 
 ___
 
 ### Git
 - git/GitHub workflows to be added in the future.
 
-[Return to Topics List](#topics)
+*[Return to Topics List](#topics)*
 
 ___
 
@@ -153,7 +173,7 @@ ___
 	- `--from-history` is important; this updates an environment file based directly on the dependencies when the `conda` environment was created and from any packages added using `conda` during the project (i.e. does not include sub-dependencies, only the top "level" of dependencies).
 	- `grep -v "^prefix: "` takes the output from export and only writes the lines that don't start with `"prefix: "` to `environment.yml`. The prefix is just the path to the virtual environment folder and likely includes our computer's username. We leave it out here so that it's not on GitHub and because `conda` doesn't need it when creating the virtual environment.
 
-[Return to Topics List](#topics)
+*[Return to Topics List](#topics)*
 
 ___
 
@@ -170,7 +190,7 @@ ___
 	```
 - Access the contextual help by placing you cursor in a class/function/method or other object (click the text to place the cursor) and then use the keyboard shortcut `ctrl`+`I`.
 
-[Return to Topics List](#topics)
+*[Return to Topics List](#topics)*
 
 ___
 
@@ -214,9 +234,8 @@ build-backend = "poetry.core.masonry.api"
 
 #### Run a file individually as a module (useful for debugging)
 - The following example is based on the following directory structure:
-<div align="center">
-	<img src="images/python_file_run_as_module_example_directory.svg" />
-</div>
+
+	![[python_file_run_as_module_example_directory.svg]]
 
 1. Navigate to the `src` directory.
 1. Run the file from `src` using the `-m` flag and dotted module notation:
@@ -233,4 +252,4 @@ build-backend = "poetry.core.masonry.api"
 - Poetry's dependency resolver is more advanced than pip's.
 - Poetry, compared to other python environment/dependency managers, seems to have consistent activity on its GitHub and is actively being maintained.
 
-[Return to Topics List](#topics)
+*[Return to Topics List](#topics)*
