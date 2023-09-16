@@ -11,7 +11,7 @@ from utils.constants import APP_SOURCE_CODE_URL, ICONS
 footer = html.Div(
     dcc.Link(
         [
-            html.Img(src=ICONS["github"], className="aspect-square h-5 sm:h-4"),
+            html.Img(src=ICONS["github"], className="aspect-square h-5"),
             html.Span("Portfolio Source", className="align-middle text-emerald-50"),
         ],
         href=APP_SOURCE_CODE_URL,

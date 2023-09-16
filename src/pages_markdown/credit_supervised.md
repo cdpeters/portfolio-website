@@ -15,10 +15,10 @@ dataset is a credit card credit dataset from LendingClub. The dataset is not
 included in this repository due to size.
 
 The main analysis files are
-*[credit_risk_resampling.ipynb](/credit_risk_resampling.ipynb)* for resampling
+*[credit_risk_resampling.ipynb](https://github.com/cdpeters/credit-risk-supervised-ML-sklearn/blob/main/credit_risk_resampling.ipynb)* for resampling
 techniques combined with the scikit-learn logistic regression classifier and
-*[credit_risk_ensemble.ipynb](/credit_risk_ensemble.ipynb)* for balanced random
-forest and easy ensemble AdaBoost classifiers.
+*[credit_risk_ensemble.ipynb](https://github.com/cdpeters/credit-risk-supervised-ML-sklearn/blob/main/credit_risk_ensemble.ipynb)*
+for balanced random forest and easy ensemble AdaBoost classifiers.
 
 ### **Results**
 The results of the following resampling methods and ensemble models are shown in
@@ -31,12 +31,14 @@ when an account is misidentified as low risk and is actually high risk thus
 recall for the high risk class will be most important here.
 
 *Resampling Methods:*
+
 1. Random Oversampling
 1. SMOTE Oversampling
 1. Cluster Centroids Undersampling
 1. SMOTEENN Combination (Over/Under) Sampling
 
 *Ensemble Models:*
+
 1. Balanced Random Forest Model
 1. Easy Ensemble AdaBoost Model
 

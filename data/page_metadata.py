@@ -15,9 +15,9 @@ data_types = {
     "order": pd.Int8Dtype(),
     "section": pd.StringDtype(),
     "name": pd.StringDtype(),
-    "repo_link": pd.StringDtype(),
-    "languages_used": pd.StringDtype(),
-    "main_tools": pd.StringDtype(),
+    "repo": pd.StringDtype(),
+    "languages": pd.StringDtype(),
+    "libraries_tools": pd.StringDtype(),
     "concepts": pd.StringDtype(),
     "website": pd.StringDtype(),
 }

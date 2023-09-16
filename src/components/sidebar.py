@@ -53,24 +53,28 @@ def create_sidebar() -> html.Div:
         # Only include pages that are meant to be shown in the sidebar.
         language = page["section"]
         if language:
-            language_title = language.title() if language != "sql" else language.upper()
+            if language == "sql" or language == "cli":
+                language_title = language.upper()
+            elif language == "javascript":
+                language_title = "JavaScript"
+            else:
+                language_title = language.title()
             language_heading = html.Span(
                 language_title,
                 className="text-left italic text-lg text-slate-500",
             )
-            dropdown_button = html.Button(
-                html.Img(
-                    id=IDS[f"section_{language}"]["icon"],
-                    src=ICONS["section_arrow"],
-                    className="aspect-square h-3.5 transition-transform",
-                ),
+            heading = html.Button(
+                [
+                    language_heading,
+                    html.Img(
+                        id=IDS[f"section_{language}"]["icon"],
+                        src=ICONS["section_arrow"],
+                        className="aspect-square h-3.5 transition-transform",
+                    ),
+                ],
                 id=IDS[f"section_{language}"]["button"],
-                className="",
-                type="button",
-            )
-            heading = html.Div(
-                [language_heading, dropdown_button],
                 className="flex items-center justify-between px-2.5 pb-2.5 pt-3.5",
+                type="button",
             )
 
         link = dcc.Link(
