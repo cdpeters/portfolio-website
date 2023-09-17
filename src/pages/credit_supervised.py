@@ -10,84 +10,79 @@ from pathlib import Path
 
 from dash import dcc, html, register_page
 
-from utils.constants import ICONS, IDS, PAGE_METADATA
+from utils.constants import IDS, PAGE_METADATA
+from utils.project_page_constants import LAYOUT, SUMMARY_BAR, SUMMARY_DATA, SUMMARY_KEYS
 
 # Extract page name from the module name.
 page = __name__.replace("pages.", "")
-register_page(__name__, **PAGE_METADATA[page], id_page_link=IDS[f"page_{page}"]["link"])
+page_metadata = PAGE_METADATA[page].copy()
 
+# Register page ------------------------------------------------------------------------
+register_page(__name__, **page_metadata, id_page_link=IDS[f"page_{page}"]["link"])
+
+# Read markdown file -------------------------------------------------------------------
 pages_markdown_dir = Path(__file__).parents[1].joinpath("pages_markdown")
-
 # Read the markdown file associated with this page in as string.
 with open(pages_markdown_dir / f"{page}.md", "r", encoding="utf-8") as f:
     markdown_contents = f.read()
 
-if PAGE_METADATA[page]["website"] is None:
-    website = "N/A"
-else:
-    website = PAGE_METADATA[page]["website"]
+# Create page layout -------------------------------------------------------------------
+# Summary section.
+summary_data = list()
+for key in SUMMARY_KEYS:
+    # Header metadata values that are None will be assigned "N/A" instead.
+    if not page_metadata[key]:
+        page_metadata[key] = "N/A"
 
-metadata = html.Div(
+    # label_div.
+    label_div = html.Div(
+        SUMMARY_DATA[key]["label_div"]["label"],
+        className=SUMMARY_DATA[key]["label_div"]["class"],
+    )
+    summary_data.append(label_div)
+
+    # data_div.
+    data_div = html.Div(
+        page_metadata[key],
+        className=SUMMARY_DATA[key]["data_div"]["class"],
+    )
+    summary_data.append(data_div)
+
+summary = html.Div(
     [
-        #
+        # Summary title bar.
         html.Div(
             [
-                html.Div("Project Summary", className="font-semibold text-emerald-50"),
+                # Summary title bar label.
+                html.Div(
+                    SUMMARY_BAR["div"]["label"], className=SUMMARY_BAR["div"]["class"]
+                ),
+                # Repo link.
                 dcc.Link(
                     [
-                        html.Img(src=ICONS["github"], className="aspect-square h-5"),
-                        html.Span("Source", className="align-middle text-emerald-50"),
+                        html.Img(
+                            src=SUMMARY_BAR["img"]["src"],
+                            className=SUMMARY_BAR["img"]["class"],
+                        ),
+                        html.Span(
+                            SUMMARY_BAR["span"]["label"],
+                            className=SUMMARY_BAR["span"]["class"],
+                        ),
                     ],
-                    href=PAGE_METADATA[page]["repo"],
+                    href=page_metadata["repo"],
                     refresh=True,
                     target="_blank",
-                    className="not-prose flex items-center justify-between gap-2",
+                    className=SUMMARY_BAR["link"]["class"],
                 ),
             ],
-            className="px-2 py-0.5 flex items-center justify-between bg-slate-700 rounded",
+            className=SUMMARY_BAR["class"],
         ),
+        # Summary data.
         html.Div(
-            [
-                #
-                html.Div(
-                    "Languages",
-                    className="px-2 font-semibold col-start-1 col-span-1 row-start-1 row-span-1 text-slate-600",
-                ),
-                html.Div(
-                    PAGE_METADATA[page]["languages"],
-                    className="col-start-2 col-span-1 row-start-1 row-span-1",
-                ),
-                #
-                html.Div(
-                    "Libraries/Tools",
-                    className="px-2 font-semibold col-start-1 col-span-1 row-start-2 row-span-1 text-slate-600",
-                ),
-                html.Div(
-                    PAGE_METADATA[page]["libraries_tools"],
-                    className="col-start-2 col-span-1 row-start-2 row-span-1",
-                ),
-                #
-                html.Div(
-                    "Concepts",
-                    className="px-2 font-semibold col-start-1 col-span-1 row-start-3 row-span-1 text-slate-600",
-                ),
-                html.Div(
-                    PAGE_METADATA[page]["concepts"],
-                    className="col-start-2 col-span-1 row-start-3 row-span-1",
-                ),
-                #
-                html.Div(
-                    "Website",
-                    className="px-2 font-semibold col-start-1 col-span-1 row-start-4 row-span-1 text-slate-600",
-                ),
-                html.Div(
-                    website, className="col-start-2 col-span-1 row-start-4 row-span-1"
-                ),
-            ],
-            className="py-1 grid grid-cols-[9rem_1fr] grid-row-4",
+            summary_data,
+            className=SUMMARY_DATA["class"],
         ),
     ],
-    className="",
 )
 
 markdown = dcc.Markdown(
@@ -97,13 +92,14 @@ markdown = dcc.Markdown(
 )
 
 layout = html.Div(
+    # Prose
     html.Div(
         [
-            metadata,
-            html.Hr(className="not-prose mx-2 mt-2 mb-10 border-slate-400"),
+            summary,
+            html.Hr(className=LAYOUT["hr"]["class"]),
             markdown,
         ],
-        className="prose prose-slate hover:prose-a:text-slate-500 max-w-3xl px-4 pb-10 pt-6 max-xs:prose-sm sm:prose-lg xl:prose-xl marker:text-slate-500 prose-headings:text-slate-700 prose-img:border prose-img:border-slate-700 prose-img:shadow-md prose-img:shadow-slate-600 max-xs:max-w-[100%] sm:px-7 md:px-8 xl:max-w-4xl",
+        className=LAYOUT["div"]["class"],
     ),
-    className="flex flex-wrap justify-center h-[calc(100vh-1.75rem)]",
+    className=LAYOUT["class"],
 )
