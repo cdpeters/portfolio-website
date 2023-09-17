@@ -10,7 +10,7 @@ python = "^3.11"
 dash = "^2.13.0"
 pandas = "^2.1.0"
 gunicorn = "^21.2.0"
-ibis-framework = "^6.2.0"
+ibis-framework = {extras = ["sqlite"], version = "^6.2.0"}
 rich = "^13.5.2"
 
 
