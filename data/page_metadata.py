@@ -25,7 +25,7 @@ data_types = {
 projects = pd.read_excel(metadata_path, dtype=data_types, index_col=0)
 projects.to_json(json_path, orient="index")
 
-if __name__ == "__main__":
-    pprint(project_dir)
-    pprint(metadata_path)
-    pprint(json_path)
+pprint("Excel file path:")
+pprint(metadata_path)
+pprint("JSON output path:")
+pprint(json_path)
