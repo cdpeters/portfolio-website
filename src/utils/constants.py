@@ -1,6 +1,6 @@
 """Constants used throughout the app.
 
-A `secrets.toml` file is loaded via the `tomli` library and the appropriate constants
+A `secrets.toml` file is loaded via the `tomllib` library and the appropriate constants
 are assigned. Additional constants (not contained within `secrets.toml`) are also
 defined.
 
@@ -26,10 +26,10 @@ Constants:
         COLORS
 """
 import json
+import tomllib
 from pathlib import Path
 from typing import Any
 
-import tomli
 from rich.pretty import pprint
 
 # Page and Section Data ----------------------------------------------------------------
@@ -52,7 +52,7 @@ SECTIONS = {
 GOOGLE_DRIVE_DIR: Path | None
 try:
     with open(Path(__file__).parents[2] / "secrets.toml", "rb") as f:
-        secrets = tomli.load(f)
+        secrets = tomllib.load(f)
     GOOGLE_DRIVE_DIR = Path(secrets["google_drive"]["path"])
 except FileNotFoundError:
     GOOGLE_DRIVE_DIR = None
