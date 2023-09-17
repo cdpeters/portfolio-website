@@ -1,43 +1,40 @@
 [tool.poetry]
 name = "portfolio-website"
 version = "0.1.0"
-description = "A portfolio website for programming projects."
+description = "My programming portfolio website"
 authors = ["Chris Peterson <cdpeters1@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
-pandas = "^1.5.1"
-dash = "^2.7.0"
-sqlalchemy = "^1.4.44"
-tomli = "^2.0.1"
-ibis-framework = "^4.1.0"
-gunicorn = "^20.1.0"
+python = "^3.11"
+dash = "^2.13.0"
+pandas = "^2.1.0"
+gunicorn = "^21.2.0"
+ibis-framework = "^6.2.0"
 rich = "^13.5.2"
 
+
 [tool.poetry.group.dev.dependencies]
-black = "^22.12.0"
-ipykernel = "^6.18.0"
-pre-commit = "^2.20.0"
-isort = "^5.10.1"
-flake8 = "^5.0.4"
+ipykernel = "^6.25.2"
+jupyterlab = "^4.0.6"
+black = "^23.9.1"
+blacken-docs = "^1.16.0"
+isort = "^5.12.0"
+flake8 = "^6.1.0"
+flake8-docstrings = "^1.7.0"
 interrogate = "^1.5.0"
-flake8-docstrings = "^1.6.0"
-pandas-stubs = {version = "^1.5.1", python = ">=3.10,<3.12"}
-nbqa = "^1.6.0"
-blacken-docs = "^1.12.1"
-click = "^8.1.6"
 mypy = "^1.5.1"
-jupyterlab = "^4.0.5"
+nbqa = "^1.7.0"
 catppuccin-jupyterlab = "^0.2.0"
+pre-commit = "^3.4.0"
+click = "^8.1.7"
 docrepr = "^0.2.0"
 openpyxl = "^3.1.2"
+pandas-stubs = "^2.0.3.230814"
 
-[tool.poetry.group.test.dependencies]
-pytest = "^7.2.0"
 
 [tool.black]
-target-version = ["py310"]
+target-version = ["py311"]
 
 [tool.isort]
 profile = "black"
@@ -49,7 +46,7 @@ verbose = 1
 exclude = ["*.ipynb_checkpoints*"]
 
 [tool.mypy]
-python_version = "3.10"
+python_version = "3.11"
 
 [[tool.mypy.overrides]]
 module = [
@@ -68,9 +65,6 @@ interrogate = [
 
 [tool.nbqa.md]
 blacken-docs = true
-
-[tool.pytest.ini_options]
-pythonpath = [".", "src"]
 
 [build-system]
 requires = ["poetry-core"]
