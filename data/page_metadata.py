@@ -12,6 +12,7 @@ metadata_path = project_dir / "data/test_page_metadata.xlsx"
 json_path = project_dir / "src/data/page_metadata.json"
 
 data_types = {
+    "sidebar": pd.BooleanDtype(),
     "order": pd.Int8Dtype(),
     "section": pd.StringDtype(),
     "name": pd.StringDtype(),
