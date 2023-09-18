@@ -92,7 +92,7 @@ markdown = dcc.Markdown(
 )
 
 layout = html.Div(
-    # Prose
+    # Prose container.
     html.Div(
         [
             summary,

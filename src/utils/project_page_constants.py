@@ -97,11 +97,12 @@ LAYOUT: dict[str, Any] = dict()
 className = "flex flex-wrap justify-center h-[calc(100vh-1.75rem)]"
 LAYOUT["class"] = className
 
-
-className = "prose prose-slate hover:prose-a:text-slate-500 max-w-3xl px-4 pb-10 pt-6 max-xs:prose-sm sm:prose-lg xl:prose-xl marker:text-slate-500 prose-headings:text-slate-700 prose-img:border prose-img:border-slate-400 prose-img:shadow-md prose-img:shadow-slate-400 max-xs:max-w-[100%] sm:px-7 md:px-8 xl:max-w-4xl"
+# Prose container.
+className = "prose prose-slate max-w-3xl px-4 pb-10 pt-6 max-xs:prose-sm sm:prose-lg xl:prose-xl marker:text-slate-500 prose-headings:text-slate-700 hover:prose-a:text-slate-500 prose-img:border prose-img:border-slate-400 prose-img:shadow-md prose-img:shadow-slate-400 max-xs:max-w-[100%] sm:px-7 md:px-8 xl:max-w-4xl"
 LAYOUT["div"] = {"class": className}
 
-className = "not-prose mx-2 mt-2 mb-10 border-slate-400"
+# Hr.
+className = "not-prose mx-2 mt-2 mb-12 border-slate-400"
 LAYOUT["hr"] = {"class": className}
 
 

@@ -18,7 +18,6 @@ import pandas as pd
 from dash import Input, Output, State, callback, ctx, dcc, html, page_registry
 
 from utils.constants import COLORS, ICONS, IDS, PAGE_METADATA, SECTIONS
-from utils.funcs import update_utility_classes
 
 
 def create_sidebar() -> html.Div:
@@ -38,7 +37,7 @@ def create_sidebar() -> html.Div:
     `create_sidebar` is a function (as opposed to simple named variable) in
     order to use `page_registry` within it. See the documentation for Plotly Dash.
     """
-    pages = [page for page in page_registry.values() if page.get("sidebar")]
+    pages: list[dict] = [page for page in page_registry.values() if page.get("sidebar")]
     # Build the sections based on language as a dictionary of the form:
     # {
     #     `language`: {
@@ -81,7 +80,7 @@ def create_sidebar() -> html.Div:
             page["name"],
             id=page["id_page_link"],
             href=page["relative_path"],
-            className="py-1 pl-6 pr-2 text-left font-semibold text-emerald-50 transition-transform hover:bg-slate-700 hover:pl-7 hover:pr-1.5 text-xl sm:text-lg",
+            className="py-1 pl-6 pr-2 text-left font-semibold text-emerald-50 duration-150 hover:bg-slate-700 hover:pl-7 hover:pr-1.5 text-xl sm:text-lg",
         )
 
         # Create the language key and its starting value if it does not exist yet.
@@ -98,9 +97,10 @@ def create_sidebar() -> html.Div:
     # corresponding "section div".
     link_div = html.Div(non_language_links, className="flex flex-col")
     section_div = html.Div(link_div, className="mt-3")
-    hr = html.Hr(className="max-md:hidden md:border-slate-700")
+    # hr = html.Hr(className="border-slate-700")
 
-    sections = [hr, section_div]
+    # sections = [hr, section_div]
+    sections = [section_div]
 
     for language, section_data in language_sections.items():
         # `link_div` contains all page links for projects belonging to the `language`
@@ -139,7 +139,7 @@ def create_sidebar() -> html.Div:
     },
     inputs={
         "pathname": Input(component_id=IDS["location"], component_property="pathname"),
-        "input_link_class": {
+        "page_link_class": {
             page: State(
                 component_id=IDS[f"page_{page}"]["link"],
                 component_property="className",
@@ -149,7 +149,7 @@ def create_sidebar() -> html.Div:
     },
 )
 def update_sidebar_style(
-    pathname: str, input_link_class: dict[str, str]
+    pathname: str, page_link_class: dict[str, str]
 ) -> dict[str, str]:
     """Update link colors when a link is active.
 
@@ -157,7 +157,7 @@ def update_sidebar_style(
     ----------
     pathname : str
         Current pathname of the app.
-    input_link_class : dict[str, str]
+    page_link_class : dict[str, str]
         Contains the class attribute for each page link.
 
     Returns
@@ -165,41 +165,38 @@ def update_sidebar_style(
     dict[str, str]
         Contains the updated page link classes.
     """
-    link_class = input_link_class.copy()
+    link_class = page_link_class.copy()
+
+    inactive_text = COLORS["text_color_light"]
+    inactive_hover = COLORS["hover_color_dark"]
+
+    active_background = COLORS["bg_color_light"]
+    active_text = COLORS["text_color_dark"]
 
     # Reset previously active page link to styling for inactive state ------------------
-    iis = pd.Series(link_class)
-    pattern_active = COLORS["bg_color_light"]
-    is_active = iis[iis.str.contains(pattern_active)]
+    lc = pd.Series(link_class)
+    pattern_active = rf"(?<!\S){COLORS['bg_color_light']} ?"
+    is_active = lc[lc.str.contains(pattern_active)]
 
-    # If there is a previously active page then its classes will be updated to make it
-    # inactive.
     if not is_active.empty:
-        previous_page = str(is_active.index[0])
-        # assert previous_page is not None
-        link_class[previous_page] = update_utility_classes(
-            current_classes=is_active.loc[previous_page],
-            remove_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
-            add_classes=[COLORS["text_color_light"], COLORS["hover_color_dark"]],
-            ignore_prefix_warning=True,
+        previous_page = is_active.index[0]
+        link_class[previous_page] = link_class[previous_page].replace(
+            active_text, inactive_text
+        )
+        link_class[previous_page] = link_class[previous_page].replace(
+            active_background, inactive_hover
         )
 
-    # Update current active page link to styling for active state ----------------------
     if pathname == "/":
         page = "home"
     else:
         page = pathname.replace("/", "")
         page = page.replace("-", "_")
 
-    # Try/except is used because it is possible to enter a route that doesn't exist,
-    # resulting in a KeyError when trying to access that `page` name.
     try:
-        link_class[page] = update_utility_classes(
-            current_classes=link_class[page],
-            remove_classes=[COLORS["text_color_light"], COLORS["hover_color_dark"]],
-            add_classes=[COLORS["bg_color_light"], COLORS["text_color_dark"]],
-            ignore_prefix_warning=True,
-        )
+        link_class[page] = link_class[page].replace(inactive_text, active_text)
+        link_class[page] = link_class[page].replace(inactive_hover, active_background)
+
     except KeyError:
         print(f"The page route '{page}' does not exist.")
 
@@ -272,26 +269,26 @@ def toggle_page_links_visibility(
     triggered_id = ctx.triggered_id.replace("_button", "")
 
     rotate = "-rotate-90"
-    translate_in = "hidden"
-    translate_out = ""
+    hide = "hidden"
+    show = ""
 
-    pattern = rf"(?<!\S){rotate} ?"
+    pattern = rf"^{rotate} "
     rotate_match = re.search(pattern, section_icon_class[triggered_id])
 
+    # `rotate_match` is True when the arrow icon is pointing sideways (i.e. links are
+    # hidden).
     if rotate_match:
         section_icon_class[triggered_id] = section_icon_class[triggered_id].replace(
             rotate_match[0], ""
         )
-        link_div_class[triggered_id] = link_div_class[triggered_id].replace(
-            translate_in, translate_out
-        )
+
+        link_div_class[triggered_id] = show
     else:
         section_icon_class[
             triggered_id
         ] = f"{rotate} {section_icon_class[triggered_id]}"
-        link_div_class[triggered_id] = link_div_class[triggered_id].replace(
-            translate_out, translate_in
-        )
+
+        link_div_class[triggered_id] = hide
 
     return {
         "section_icon_class": section_icon_class,

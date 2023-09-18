@@ -81,26 +81,26 @@ def show_sidebar(
         The updated `className` properties for the nav icon and sidebar.
     """
     rotate = "-rotate-90"
-    translate_in = "max-md:translate-x-0"
-    translate_out = "max-md:-translate-x-full"
+    show = "max-md:translate-x-0"
+    hide = "max-md:-translate-x-full"
 
-    pattern = rf"(?<!\S){rotate} ?"
+    pattern = rf"^{rotate} "
     rotate_match = re.search(pattern, nav_icon_class)
 
     triggered_id = ctx.triggered_id
-    if triggered_id == IDS["location"] and rotate_match:
+    if rotate_match and triggered_id == IDS["location"]:
         # Remove the icon rotation and hide the page section.
         nav_icon_class = nav_icon_class.replace(rotate_match[0], "")
-        sidebar_class = sidebar_class.replace(translate_in, translate_out)
+        sidebar_class = sidebar_class.replace(show, hide)
     elif triggered_id == IDS["header_nav"]["button"]:
         if rotate_match:
             # Remove the icon rotation and hide the page section.
             nav_icon_class = nav_icon_class.replace(rotate_match[0], "")
-            sidebar_class = sidebar_class.replace(translate_in, translate_out)
+            sidebar_class = sidebar_class.replace(show, hide)
         else:
             # Add the icon rotation and show the page section.
             nav_icon_class = f"{rotate} {nav_icon_class}"
-            sidebar_class = sidebar_class.replace(translate_out, translate_in)
+            sidebar_class = sidebar_class.replace(hide, show)
 
     return {
         "nav_icon_class": nav_icon_class,
