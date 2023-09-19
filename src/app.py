@@ -36,7 +36,7 @@ app.layout = html.Div(
         create_sidebar(),
         footer,
     ],
-    className="grid h-screen grid-cols-[13rem_1fr] grid-rows-[4rem_1fr_2.5rem] sm:grid-cols-[12rem_1fr] sm:grid-rows-[3rem_1fr_1.75rem] md:grid-rows-[5rem_1fr_1.75rem]",
+    className="grid h-screen grid-cols-[13rem_1fr] grid-rows-[4rem_1fr_2.5rem] md:grid-rows-[5rem_1fr_1.75rem]",
 )
 
 if __name__ == "__main__":

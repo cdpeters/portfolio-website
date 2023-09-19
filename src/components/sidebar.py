@@ -80,7 +80,7 @@ def create_sidebar() -> html.Div:
             page["name"],
             id=page["id_page_link"],
             href=page["relative_path"],
-            className="py-1 pl-6 pr-2 text-left font-semibold text-emerald-50 duration-150 hover:bg-slate-700 hover:pl-7 hover:pr-1.5 text-xl sm:text-lg",
+            className="mx-2 mb-1 rounded-md py-[3px] pl-6 pr-2 text-left font-semibold text-emerald-50 duration-150 hover:bg-slate-700 hover:pl-7 hover:pr-1.5 text-xl sm:text-lg",
         )
 
         # Create the language key and its starting value if it does not exist yet.
@@ -126,7 +126,7 @@ def create_sidebar() -> html.Div:
         # argument can be a list but it must not contain a list as an element).
         sections,
         id=IDS["sidebar"],
-        className="overflow-auto bg-slate-800 transition-transform duration-300 max-md:fixed max-md:bottom-0 max-md:left-0 max-md:-translate-x-full max-sm:top-[4rem] max-sm:w-[13rem] sm:max-md:top-[3rem] sm:max-md:w-[12rem] md:col-span-1 md:col-start-1 md:row-span-2 md:row-start-2",
+        className="overflow-auto bg-slate-800 transition-transform duration-300 max-md:fixed max-md:bottom-0 max-md:left-0 max-md:top-[4rem] max-md:w-[13rem] max-md:-translate-x-full md:col-span-1 md:col-start-1 md:row-span-2 md:row-start-2",
     )
 
 

@@ -17,22 +17,23 @@ nav_button = html.Button(
     html.Img(
         id=IDS["header_nav"]["icon"],
         src=ICONS["nav"],
-        className="aspect-square h-8 sm:h-6 transition-transform duration-300",
+        title="Navigation Menu",
+        className="aspect-square h-8 transition-transform duration-300",
     ),
     id=IDS["header_nav"]["button"],
-    className="md:hidden",
+    className="py-2 md:hidden",
     type="button",
 )
 
 avatar = dcc.Link(
     "Project Portfolio",
     href="/",
-    className="text-center text-xl sm:text-lg md:text-xl text-slate-50",
+    className="text-center text-xl text-slate-50",
 )
 
 header = html.Div(
     [nav_button, avatar],
-    className="max-sm:px-4 col-span-2 col-start-1 row-span-1 row-start-1 flex items-center justify-between bg-slate-900 px-3 md:col-span-1 md:col-start-1 md:row-span-1 md:row-start-1 md:justify-center",
+    className="col-span-2 col-start-1 row-span-1 row-start-1 flex items-center justify-between bg-slate-900 px-4 md:col-span-1 md:col-start-1 md:row-span-1 md:row-start-1 md:justify-center",
 )
 
 
@@ -57,7 +58,7 @@ header = html.Div(
             component_id=IDS["sidebar"], component_property="className"
         ),
     },
-    prevent_initial_call=True,
+    # prevent_initial_call=True,
 )
 def show_sidebar(
     clicks: int, pathname: str, nav_icon_class: str, sidebar_class: str
@@ -81,11 +82,24 @@ def show_sidebar(
         The updated `className` properties for the nav icon and sidebar.
     """
     rotate = "-rotate-90"
-    show = "max-md:translate-x-0"
+    show = "max-md:translate-none"
     hide = "max-md:-translate-x-full"
+    animate = "max-md:animate-bounce-not-infinite"
 
-    pattern = rf"^{rotate} "
-    rotate_match = re.search(pattern, nav_icon_class)
+    pattern_animate = rf"^{animate} "
+    animate_match = re.search(pattern_animate, nav_icon_class)
+
+    pattern_rotate = rf"^{rotate} "
+    rotate_match = re.search(pattern_rotate, nav_icon_class)
+
+    if not clicks:
+        nav_icon_class = f"{animate} {nav_icon_class}"
+        return {
+            "nav_icon_class": nav_icon_class,
+            "sidebar_class": sidebar_class,
+        }
+    elif animate_match:
+        nav_icon_class = nav_icon_class.replace(animate_match[0], "")
 
     triggered_id = ctx.triggered_id
     if rotate_match and triggered_id == IDS["location"]:
