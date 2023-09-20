@@ -1,18 +1,21 @@
 """Constants used in each project page.
 
-The reasoning for this constants file is for the maintainability of project pages. Each
-project page file is now exactly the same (essentially a template) with all of the
-necessary constants imported in.
+The reason for this constants file is for maintainability of project pages. Each project
+page file is now exactly the same (essentially a template) with all of the necessary
+constants imported in.
 
-In regards to the use of the repeated use of the `className` variable below, this is
-done as a work around due to the limitations of the tailwindcss intellisense vs code
-extension. This extension only recognizes variables that are variants of the word
-"class". Additionally, the extension does not work with python f-strings so common
-classes are not extracted out and replaced by variables, they are instead left as is in
-the standard string literal.
+In regards to the repeated use of the `className` variable below, this is done as a work
+around due to the limitations of the tailwindcss intellisense VScode extension. This
+extension only recognizes variables that are variants of the word "class". Additionally,
+the extension does not work with python f-strings so common classes are not extracted
+out and replaced by variables, they are instead left as is in the standard string
+literal.
 
 Constants:
-    PAGE_SUMMARY_KEYS SUMMARY_BAR SUMMARY_DATA LAYOUT
+    PAGE_SUMMARY_KEYS
+    SUMMARY_BAR
+    SUMMARY_DATA
+    LAYOUT
 
 """
 from typing import Any
@@ -21,7 +24,7 @@ from rich.pretty import pprint
 
 from utils.constants import ICONS
 
-# Just the keys for the data in the summary, repo is excluded since it is in the summary
+# The keys for the data in the summary, repo is excluded since it is in the summary
 # title bar.
 SUMMARY_KEYS = ("languages", "libraries_tools", "concepts", "website")
 
@@ -57,10 +60,10 @@ SUMMARY_DATA["class"] = className
 
 
 # Languages.
-# label_div
+# Label div.
 className = "font-semibold col-start-1 col-span-1 row-start-1 row-span-1 text-slate-700"
 SUMMARY_DATA["languages"] = {"label_div": {"label": "Languages", "class": className}}
-# data_div
+# Data div.
 className = "col-start-2 col-span-1 row-start-1 row-span-1"
 SUMMARY_DATA["languages"]["data_div"] = {"class": className}
 

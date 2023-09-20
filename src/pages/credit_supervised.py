@@ -1,9 +1,9 @@
-"""Layout for the background page.
+"""Layout for each project page.
 
-Displays an example project background using markdown.
+Displays a project summary (via the page's metadata) along with the given project's
+README.md markdown.
 
 Variables:
-    markdown
     layout
 """
 from pathlib import Path
@@ -27,27 +27,34 @@ with open(pages_markdown_dir / f"{page}.md", "r", encoding="utf-8") as f:
     markdown_contents = f.read()
 
 # Create page layout -------------------------------------------------------------------
-# Summary section.
+# Outline:
+#   Build project summary data pieces
+#   Build the summary section that shows at the top of the page
+#   Build the project's README markdown component
+#   Assemble the page in the variable `layout`
+
+# Build project summary data pieces.
 summary_data = list()
 for key in SUMMARY_KEYS:
-    # Header metadata values that are None will be assigned "N/A" instead.
+    # Summary data values that are None will be assigned "N/A" instead.
     if not page_metadata[key]:
         page_metadata[key] = "N/A"
 
-    # label_div.
+    # Label div.
     label_div = html.Div(
         SUMMARY_DATA[key]["label_div"]["label"],
         className=SUMMARY_DATA[key]["label_div"]["class"],
     )
     summary_data.append(label_div)
 
-    # data_div.
+    # Data div.
     data_div = html.Div(
         page_metadata[key],
         className=SUMMARY_DATA[key]["data_div"]["class"],
     )
     summary_data.append(data_div)
 
+# Build the summary section that shows at the top of the page.
 summary = html.Div(
     [
         # Summary title bar.
@@ -85,12 +92,14 @@ summary = html.Div(
     ],
 )
 
+# Build the project's README markdown component.
 markdown = dcc.Markdown(
     markdown_contents,
     link_target="_blank",
     dangerously_allow_html=True,
 )
 
+# Assemble the page in the variable `layout`.
 layout = html.Div(
     # Prose container.
     html.Div(
