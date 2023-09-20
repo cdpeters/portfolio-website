@@ -26,18 +26,18 @@
 }
 
 @layer utilities {
-    .animate-bounce-not-infinite {
-        animation: bounce 1s 4;
+    .animate-ping-not-infinite {
+        animation: ping 1s cubic-bezier(0, 0, 0.2, 1) 3;
     }
 
-    @keyframes bounce {
-        0%, 100% {
-            transform: translateY(0%);
-            animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-        }
+    @keyframes ping {
         50% {
-            transform: translateY(-30%);
-            animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+            transform: scale(1.4);
+            opacity: .2;
         }
+    }
+
+    .tap-color-transparent {
+        -webkit-tap-highlight-color: transparent;
     }
 }

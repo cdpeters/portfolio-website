@@ -69,7 +69,7 @@ APP_SOURCE_CODE_URL = "https://github.com/cdpeters/portfolio-website"
 # Logos and Icons ----------------------------------------------------------------------
 ICONS = {
     "github": "/assets/images/github.svg",
-    "nav": "/assets/images/compass.svg",
+    "nav": "/assets/images/bars.svg",
     "section_arrow": "/assets/images/angle-down.svg",
 }
 

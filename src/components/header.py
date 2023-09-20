@@ -18,7 +18,7 @@ nav_button = html.Button(
         id=IDS["header_nav"]["icon"],
         src=ICONS["nav"],
         title="Navigation Menu",
-        className="aspect-square h-8 transition-transform duration-300",
+        className="aspect-square h-8 transition-transform duration-300 fill-slate-600",
     ),
     id=IDS["header_nav"]["button"],
     className="py-2 md:hidden",
@@ -84,7 +84,7 @@ def show_sidebar(
     rotate = "-rotate-90"
     show = "max-md:translate-none"
     hide = "max-md:-translate-x-full"
-    animate = "max-md:animate-bounce-not-infinite"
+    animate = "max-md:animate-ping-not-infinite"
 
     pattern_animate = rf"^{animate} "
     animate_match = re.search(pattern_animate, nav_icon_class)

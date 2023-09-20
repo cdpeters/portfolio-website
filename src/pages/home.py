@@ -17,7 +17,7 @@ register_page(
 layout = html.Div(
     html.H1(
         "I Swear That Guitar is Blue",
-        className="pb-12 text-center text-3xl font-bold text-slate-700 md:pb-16 md:text-4xl lg:text-5xl xl:text-6xl",
+        className="px-4 pb-12 text-center text-3xl font-bold text-slate-700 md:pb-16 md:text-4xl lg:text-5xl xl:text-6xl",
     ),
     className="flex h-[calc(100vh-4rem-2.5rem)] flex-col items-center justify-center sm:h-[calc(100vh-3rem-1.75rem)] md:h-[calc(100vh-1.75rem)]",
 )
