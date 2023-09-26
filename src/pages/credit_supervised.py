@@ -11,7 +11,13 @@ from pathlib import Path
 from dash import dcc, html, register_page
 
 from utils.constants import IDS, PAGE_METADATA
-from utils.project_page_constants import LAYOUT, SUMMARY_BAR, SUMMARY_DATA, SUMMARY_KEYS
+from utils.project_page_constants import (
+    LAYOUT,
+    MARKDOWN,
+    SUMMARY_BAR,
+    SUMMARY_DATA,
+    SUMMARY_KEYS,
+)
 
 # Extract page name from the module name.
 page = __name__.replace("pages.", "")
@@ -54,33 +60,37 @@ for key in SUMMARY_KEYS:
     )
     summary_data.append(data_div)
 
+# Summary title bar label.
+summary_title_bar_label = html.Div(
+    SUMMARY_BAR["div"]["label"], className=SUMMARY_BAR["div"]["class"]
+)
+
+# Repo link.
+repo_link = dcc.Link(
+    [
+        html.Img(
+            src=SUMMARY_BAR["img"]["src"],
+            className=SUMMARY_BAR["img"]["class"],
+        ),
+        html.Span(
+            SUMMARY_BAR["span"]["label"],
+            className=SUMMARY_BAR["span"]["class"],
+        ),
+    ],
+    href=page_metadata["repo"],
+    refresh=True,
+    target="_blank",
+    className=SUMMARY_BAR["link"]["class"],
+)
+
 # Build the summary section that shows at the top of the page.
 summary = html.Div(
     [
         # Summary title bar.
         html.Div(
             [
-                # Summary title bar label.
-                html.Div(
-                    SUMMARY_BAR["div"]["label"], className=SUMMARY_BAR["div"]["class"]
-                ),
-                # Repo link.
-                dcc.Link(
-                    [
-                        html.Img(
-                            src=SUMMARY_BAR["img"]["src"],
-                            className=SUMMARY_BAR["img"]["class"],
-                        ),
-                        html.Span(
-                            SUMMARY_BAR["span"]["label"],
-                            className=SUMMARY_BAR["span"]["class"],
-                        ),
-                    ],
-                    href=page_metadata["repo"],
-                    refresh=True,
-                    target="_blank",
-                    className=SUMMARY_BAR["link"]["class"],
-                ),
+                summary_title_bar_label,
+                repo_link,
             ],
             className=SUMMARY_BAR["class"],
         ),
@@ -97,6 +107,7 @@ markdown = dcc.Markdown(
     markdown_contents,
     link_target="_blank",
     dangerously_allow_html=True,
+    className=MARKDOWN["class"],
 )
 
 # Assemble the page in the variable `layout`.

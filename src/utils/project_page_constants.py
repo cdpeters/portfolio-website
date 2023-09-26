@@ -42,11 +42,11 @@ SUMMARY_BAR["div"] = {"label": "Project Summary", "class": className}
 
 
 # Repo Link.
-className = "not-prose flex items-center justify-between gap-2"
+className = "not-prose flex items-center justify-center gap-2"
 SUMMARY_BAR["link"] = {"class": className}
 
-className = "aspect-square h-5"
-SUMMARY_BAR["img"] = {"src": ICONS["github"], "class": className}
+className = "aspect-square h-5 lg:h-6"
+SUMMARY_BAR["img"] = {"src": ICONS["github_light"], "class": className}
 
 className = "align-middle text-emerald-50"
 SUMMARY_BAR["span"] = {"label": "Source", "class": className}
@@ -94,14 +94,26 @@ className = "col-start-2 col-span-1 row-start-4 row-span-1"
 SUMMARY_DATA["website"]["data_div"] = {"class": className}
 
 
+# Markdown -----------------------------------------------------------------------------
+MARKDOWN: dict[str, str] = dict()
+
+className = "pb-10"
+MARKDOWN["class"] = className
+
+
 # Layout -------------------------------------------------------------------------------
 LAYOUT: dict[str, Any] = dict()
 
-className = "flex flex-wrap justify-center h-[calc(100vh-1.75rem)]"
+className = "bg-[url('/assets/images/math.png')] bg-center bg-cover xl:bg-bottom flex h-[calc(100vh-4rem-2.5rem)] flex-col items-center md:h-[calc(100vh-1.75rem)] overflow-auto"
 LAYOUT["class"] = className
 
 # Prose container.
-className = "prose prose-slate max-w-3xl px-4 pb-10 pt-6 max-xs:prose-sm sm:prose-lg xl:prose-xl marker:text-slate-500 prose-headings:text-slate-700 hover:prose-a:text-slate-500 prose-img:border prose-img:border-slate-400 prose-img:shadow-md prose-img:shadow-slate-400 max-xs:max-w-[100%] sm:px-7 md:px-8 xl:max-w-4xl"
+className = """prose prose-slate max-w-full px-4 py-6
+sm:prose-lg lg:prose-xl 2xl:prose-2xl
+marker:text-slate-500 prose-headings:text-slate-700
+max-xs:prose-h1:text-[2.1rem] sm:prose-h1:text-[2.625rem] lg:prose-h1:text-5xl prose-h1:text-center prose-h1:leading-tight
+hover:prose-a:text-slate-500 prose-img:border prose-img:border-slate-400 prose-img:shadow-md prose-img:shadow-slate-400
+xs:max-w-3xl xs:px-8 2xl:max-w-5xl backdrop-blur-[2px]"""
 LAYOUT["div"] = {"class": className}
 
 # Hr.

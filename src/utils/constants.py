@@ -6,10 +6,13 @@ Constants:
         SECTIONS: Language sections in the sidebar.
 
     External Links:
-        APP_SOURCE_CODE_URL
+        EXTERNAL_LINKS
 
     Logos and Icons:
         ICONS
+
+    Images
+        IMAGES
 
     Component IDs:
         IDS
@@ -37,14 +40,31 @@ SECTIONS = {
 
 
 # External Links -----------------------------------------------------------------------
-APP_SOURCE_CODE_URL = "https://github.com/cdpeters/portfolio-website"
+EXTERNAL_LINKS = {
+    "portfolio": "https://github.com/cdpeters/portfolio-website",
+    "github": "https://github.com/cdpeters",
+    "linkedin": "https://www.linkedin.com/in/cdpeters1/",
+    "email": "mailto:cdpeters1@gmail.com",
+    "resume": "https://drive.google.com/file/d/1-swa3WNhcCW4XXgqaISO96zZB3Xqf6GS/view?usp=drive_link",
+}
 
 
 # Logos and Icons ----------------------------------------------------------------------
 ICONS = {
-    "github": "/assets/images/github.svg",
+    "github_light": "/assets/images/github_light.svg",
+    "github_dark": "/assets/images/github_dark.svg",
+    "linkedin": "/assets/images/linkedin.svg",
+    "email": "/assets/images/envelope.svg",
+    "resume": "/assets/images/file-lines.svg",
     "nav": "/assets/images/bars.svg",
     "section_arrow": "/assets/images/angle-down.svg",
+}
+
+
+# Images -------------------------------------------------------------------------------
+IMAGES = {
+    "face": "/assets/images/profile_picture_square.jpg",
+    "galaxy": "/assets/images/galaxy.jpg",
 }
 
 
