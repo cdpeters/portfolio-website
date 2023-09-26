@@ -234,8 +234,9 @@ build-backend = "poetry.core.masonry.api"
 
 #### Run a file individually as a module (useful for debugging)
 - The following example is based on the following directory structure:
-
-	![[python_file_run_as_module_example_directory.svg]]
+<div align="center">
+	<img src="images/python_file_run_as_module_example_directory.svg" />
+</div>
 
 1. Navigate to the `src` directory.
 1. Run the file from `src` using the `-m` flag and dotted module notation:
