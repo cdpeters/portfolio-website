@@ -31,7 +31,7 @@ app.layout = html.Div(
         # Page Content.
         html.Div(
             dash.page_container,
-            className="col-span-2 col-start-1 row-span-1 row-start-2 bg-gradient-to-br from-slate-50 from-60% via-slate-300 via-90% to-slate-400 md:col-span-1 md:col-start-2 md:row-span-2 md:row-start-1",
+            className="col-span-2 col-start-1 row-span-1 row-start-2 bg-gradient-to-br from-slate-50 from-60% via-slate-200 via-80% to-slate-300 md:col-span-1 md:col-start-2 md:row-span-2 md:row-start-1",
         ),
         create_sidebar(),
         footer,
