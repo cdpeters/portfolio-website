@@ -20,7 +20,7 @@ register_page(
 professional_links = html.Div(
     [
         dcc.Link(
-            html.Img(src=ICONS["email"], className="h-6"),
+            html.Img(src=ICONS["email"], className="h-7 lg:h-8"),
             href=EXTERNAL_LINKS["email"],
             refresh=True,
             target="_blank",
@@ -28,7 +28,7 @@ professional_links = html.Div(
             className="",
         ),
         dcc.Link(
-            html.Img(src=ICONS["resume"], className="h-6"),
+            html.Img(src=ICONS["resume"], className="h-7 lg:h-8"),
             href=EXTERNAL_LINKS["resume"],
             refresh=True,
             target="_blank",
@@ -36,7 +36,7 @@ professional_links = html.Div(
             className="",
         ),
         dcc.Link(
-            html.Img(src=ICONS["linkedin"], className="h-6"),
+            html.Img(src=ICONS["linkedin"], className="h-7 lg:h-8"),
             href=EXTERNAL_LINKS["linkedin"],
             refresh=True,
             target="_blank",
@@ -44,7 +44,7 @@ professional_links = html.Div(
             className="",
         ),
         dcc.Link(
-            html.Img(src=ICONS["github_dark"], className="h-6"),
+            html.Img(src=ICONS["github_dark"], className="h-7 lg:h-8"),
             href=EXTERNAL_LINKS["github"],
             refresh=True,
             target="_blank",
@@ -57,7 +57,7 @@ professional_links = html.Div(
 
 face = html.Img(
     src=IMAGES["face"],
-    className="not-prose aspect-square rounded-full border-8 border-slate-300 h-36 2xs:h-40 md:h-44 lg:h-56",
+    className="not-prose aspect-square rounded-full border-8 border-slate-300 h-36 2xs:h-40 md:h-44 lg:h-56 xl:h-64",
 )
 
 heading_group = html.Div(
@@ -69,12 +69,12 @@ heading_group = html.Div(
         ),
         professional_links,
     ],
-    className="flex flex-col items-center min-w-[244px] max-2xs:gap-[1.125rem] 2xs:max-xs:gap-8 xs:h-full xs:justify-around",
+    className="flex flex-col items-center min-w-[244px] max-2xs:gap-[1.125rem] 2xs:max-xs:gap-8 xs:h-full lg:h-64 xl:h-80 xs:justify-around",
 )
 
 tagline = html.P(
-    "I'm a data analyst with a passion for combining math and programming to solve puzzles and seek insight about the world.",
-    className="max-xs:px-[5%] px-[7%] md:px-[7%] lg:px-[9%] max-xs:text-justify text-center italic font-semibold",
+    "I'm a data analyst with a background in mechanical engineering and a passion for combining math and programming to solve puzzles and seek insight about the world.",
+    className="max-xs:px-[5%] px-[7%] md:px-[7%] lg:px-[9%] md:text-center italic font-semibold",
 )
 
 face_blurb = html.Div(
@@ -101,7 +101,7 @@ layout = html.Div(
         marker:text-slate-500 prose-headings:m-0
         prose-h1:text-4xl prose-h1:font-bold prose-h1:leading-tight prose-h1:text-slate-700
         prose-h4:text-slate-500
-        prose-p:m-0 prose-p:text-slate-500 hover:prose-a:text-slate-500 prose-img:m-0
+        prose-p:m-0 hover:prose-a:text-slate-500 prose-img:m-0
         max-2xs:prose-h1:text-4xl
         2xs:max-xs:prose-h1:text-[2.625rem]
         xs:max-w-3xl
@@ -109,7 +109,7 @@ layout = html.Div(
         sm:prose-h1:text-[2.625rem]
         md:prose-h1:text-5xl
         lg:prose-h1:text-6xl xl:max-w-4xl xl:prose-h1:text-7xl
-        2xl:max-w-5xl backdrop-blur-[1px]""",
+        2xl:max-w-5xl backdrop-blur-[2px]""",
     ),
     className="bg-[url('/assets/images/math.png')] bg-center bg-cover xl:bg-bottom flex h-[calc(100vh-4rem-2.5rem)] flex-col items-center md:h-[calc(100vh-1.75rem)] overflow-auto",
 )

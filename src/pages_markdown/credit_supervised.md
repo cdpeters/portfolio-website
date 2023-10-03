@@ -3,12 +3,12 @@
 ## **Overview of Project**
 The following analysis is aimed at applying techniques to deal with class
 imbalance in binary (and even multi class) classification problems. The first
-approach is to use resampling techniques such as oversampling and undersampling
-as well as a combination of the two in conjunction with a logistic regression
-model from scikit-learn. The second approach is to use ensemble learning models
-that have resampling techniques built in from the Imbalanced Learn library. The
-goal is to determine which approaches, if any, yield useful models for
-predicting credit risk.
+approach is to use resampling techniques such as oversampling, undersampling,
+and a combination of both in conjunction with a logistic regression model from
+scikit-learn. The second approach is to use ensemble learning models that have
+resampling techniques built in from the Imbalanced Learn library. The goal is to
+determine which approaches, if any, yield useful models for predicting credit
+risk.
 
 The context for the project is assessing credit risk for loan approvals. The
 dataset is a credit card credit dataset from LendingClub. The dataset is not
@@ -17,8 +17,8 @@ included in this repository due to size.
 The main analysis files are
 *[credit_risk_resampling.ipynb](https://github.com/cdpeters/credit-risk-supervised-ML-sklearn/blob/main/credit_risk_resampling.ipynb)* for resampling
 techniques combined with the scikit-learn logistic regression classifier and
-*[credit_risk_ensemble.ipynb](https://github.com/cdpeters/credit-risk-supervised-ML-sklearn/blob/main/credit_risk_ensemble.ipynb)*
-for balanced random forest and easy ensemble AdaBoost classifiers.
+*[credit_risk_ensemble.ipynb](https://github.com/cdpeters/credit-risk-supervised-ML-sklearn/blob/main/credit_risk_ensemble.ipynb)* for balanced random
+forest and easy ensemble AdaBoost classifiers.
 
 ### **Results**
 The results of the following resampling methods and ensemble models are shown in
@@ -30,14 +30,14 @@ class. Additionally, within the context of credit risk, the worse situation is
 when an account is misidentified as low risk and is actually high risk thus
 recall for the high risk class will be most important here.
 
-*Resampling Methods:*
+***Resampling Methods:***
 
 1. Random Oversampling
 1. SMOTE Oversampling
 1. Cluster Centroids Undersampling
 1. SMOTEENN Combination (Over/Under) Sampling
 
-*Ensemble Models:*
+***Ensemble Models:***
 
 1. Balanced Random Forest Model
 1. Easy Ensemble AdaBoost Model
@@ -48,7 +48,7 @@ The following accuracy and classification report are the result of using the
 `RandomOverSampler` class with a `LogisticRegression` classifier.
 
 <div align="center">
-    <img src="/assets/images/credit_supervised/random_oversampling_accuracy.svg"
+    <img src="assets/images/credit_supervised/random_oversampling_accuracy.svg"
          alt="random oversampling accuracy" />
 </div>
 
@@ -56,7 +56,7 @@ The following accuracy and classification report are the result of using the
   ideal.
 
 <div align="center">
-    <img src="/assets/images/credit_supervised/random_oversampling.svg"
+    <img src="assets/images/credit_supervised/random_oversampling.svg"
          alt="random oversampling" />
 </div>
 
@@ -72,7 +72,7 @@ The following accuracy and classification report are the result of using the
 classifier.
 
 <div align="center">
-    <img src="/assets/images/credit_supervised/SMOTE_oversampling_accuracy.svg"
+    <img src="assets/images/credit_supervised/SMOTE_oversampling_accuracy.svg"
          alt="smote oversampling accuracy" />
 </div>
 
@@ -80,7 +80,7 @@ classifier.
   random oversampling to 0.63.
 
 <div align="center">
-    <img src="/assets/images/credit_supervised/SMOTE_oversampling.svg"
+    <img src="assets/images/credit_supervised/SMOTE_oversampling.svg"
          alt="smote oversampling" />
 </div>
 
@@ -94,7 +94,7 @@ The following accuracy and classification report are the result of using the
 `ClusterCentroids` class with a `LogisticRegression` classifier.
 
 <div align="center">
-    <img src="/assets/images/credit_supervised/cluster_centroids_undersampling_accuracy.svg"
+    <img src="assets/images/credit_supervised/cluster_centroids_undersampling_accuracy.svg"
          alt="cluster centroids undersampling accuracy" />
 </div>
 
@@ -102,7 +102,7 @@ The following accuracy and classification report are the result of using the
   significant drop from the previous two methods.
 
 <div align="center">
-    <img src="/assets/images/credit_supervised/cluster_centroids_undersampling.svg"
+    <img src="assets/images/credit_supervised/cluster_centroids_undersampling.svg"
          alt="cluster centroids undersampling" />
 </div>
 
@@ -116,7 +116,7 @@ The following accuracy and classification report are the result of using the
 `SMOTEENN` class with a `LogisticRegression` classifier.
 
 <div align="center">
-    <img src="/assets/images/credit_supervised/SMOTEENN_combo_sampling_accuracy.svg"
+    <img src="assets/images/credit_supervised/SMOTEENN_combo_sampling_accuracy.svg"
          alt="smoteenn combination sampling accuracy" />
 </div>
 
@@ -124,7 +124,7 @@ The following accuracy and classification report are the result of using the
   same as the oversampling techniques above.
 
 <div align="center">
-    <img src="/assets/images/credit_supervised/SMOTEENN_combo_sampling.svg"
+    <img src="assets/images/credit_supervised/SMOTEENN_combo_sampling.svg"
          alt="smoteenn combination sampling" />
 </div>
 
@@ -142,7 +142,7 @@ The following accuracy and classification report are the result of using the
 `BalancedRandomForestClassifier` class with number of estimators set to 100.
 
 <div align="center">
-    <img src="/assets/images/credit_supervised/balanced_random_forest_accuracy.svg"
+    <img src="assets/images/credit_supervised/balanced_random_forest_accuracy.svg"
          alt="balanced random forest accuracy" />
 </div>
 
@@ -150,7 +150,7 @@ The following accuracy and classification report are the result of using the
   strong improvement from the approaches above.
 
 <div align="center">
-    <img src="/assets/images/credit_supervised/balanced_random_forest.svg"
+    <img src="assets/images/credit_supervised/balanced_random_forest.svg"
          alt="balanced random forest" />
 </div>
 
@@ -164,7 +164,7 @@ The following accuracy and classification report are the result of using the
 `BalancedRandomForestClassifier` class with number of estimators set to 100.
 
 <div align="center">
-    <img src="/assets/images/credit_supervised/easy_ensemble_adaboost_accuracy.svg"
+    <img src="assets/images/credit_supervised/easy_ensemble_adaboost_accuracy.svg"
          alt="easy ensemble AdaBoost accuracy" />
 </div>
 
@@ -172,7 +172,7 @@ The following accuracy and classification report are the result of using the
   highest out of all methods used in the project.
 
 <div align="center">
-    <img src="/assets/images/credit_supervised/easy_ensemble_adaboost.svg"
+    <img src="assets/images/credit_supervised/easy_ensemble_adaboost.svg"
          alt="easy ensemble AdaBoost" />
 </div>
 
@@ -199,4 +199,5 @@ if missing on 10% of accounts that should actually be labeled high risk is
 acceptable, then this model would be the recommendation. If this is not
 acceptable, then none of the models in this project would be recommended for
 this credit risk assessment situation. Improvements should then be sought
-elsewhere to improve high risk recall(different model, other refinements, etc.).
+elsewhere to improve high risk recall (different model, other refinements,
+etc.).
