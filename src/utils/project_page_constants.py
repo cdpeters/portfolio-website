@@ -113,7 +113,7 @@ sm:prose-lg lg:prose-xl 2xl:prose-2xl
 marker:text-slate-500 prose-headings:text-slate-700
 max-xs:prose-h1:text-[2.1rem] sm:prose-h1:text-[2.625rem] lg:prose-h1:text-5xl prose-h1:text-center prose-h1:leading-tight
 hover:prose-a:text-slate-500 prose-img:border prose-img:border-slate-400 prose-img:shadow-md prose-img:shadow-slate-400
-xs:max-w-3xl xs:px-8 2xl:max-w-5xl backdrop-blur-[3px]"""
+xs:max-w-3xl xs:px-8 2xl:max-w-5xl backdrop-blur-[4px]"""
 LAYOUT["div"] = {"class": className}
 
 # Hr.

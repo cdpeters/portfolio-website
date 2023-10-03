@@ -21,7 +21,7 @@ nav_button = html.Button(
         id=IDS["header_nav"]["icon"],
         src=ICONS["nav"],
         title="Navigation Menu",
-        className="aspect-square h-8 transition-transform duration-300",
+        className="aspect-square h-7 transition-transform duration-300",
     ),
     id=IDS["header_nav"]["button"],
     className="py-2 md:hidden",
