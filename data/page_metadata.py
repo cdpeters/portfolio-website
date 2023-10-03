@@ -7,12 +7,11 @@ from rich.pretty import pprint
 
 project_dir = Path(__file__).parents[1]
 # Path to the project metadata excel file
-metadata_path = project_dir / "data/test_page_metadata.xlsx"
+metadata_path = project_dir / "data/page_metadata.xlsx"
 # Path to the location where the json will be stored within the app src folder.
 json_path = project_dir / "src/data/page_metadata.json"
 
 data_types = {
-    "sidebar": pd.BooleanDtype(),
     "order": pd.Int8Dtype(),
     "section": pd.StringDtype(),
     "name": pd.StringDtype(),

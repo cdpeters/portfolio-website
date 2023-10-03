@@ -36,7 +36,9 @@ def create_sidebar() -> html.Div:
     `create_sidebar` is a function (as opposed to simple named variable) in order to use
     `page_registry` within it. See the Dash documentation.
     """
-    pages: list[dict] = [page for page in page_registry.values() if page.get("sidebar")]
+    pages: list[dict] = [
+        page for page in page_registry.values() if not page.get("sidebar_exclude")
+    ]
     # Build the language sections as a dictionary of the form:
     # language_sections = {
     #     `language`: {
@@ -83,7 +85,7 @@ def create_sidebar() -> html.Div:
             page["name"],
             id=page["id_page_link"],
             href=page["relative_path"],
-            className="mx-2 mb-1 rounded-md py-[3px] pl-6 pr-2 text-left text-xl font-semibold text-emerald-50 duration-150 hover:bg-slate-700 hover:pl-7 hover:pr-1.5 sm:text-lg",
+            className="mx-2 mb-1 rounded-md py-[3px] pl-6 pr-2 text-left text-xl font-semibold text-emerald-50 duration-150 hover:bg-slate-700 hover:pl-7 hover:pr-1.5",
         )
 
         # Create the language key and its starting value if it does not exist yet. The

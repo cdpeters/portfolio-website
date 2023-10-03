@@ -6,7 +6,7 @@ Variables:
 
 from dash import html, register_page
 
-register_page(__name__)
+register_page(__name__, sidebar_exclude=True)
 
 layout = html.Div(
     html.Div(
