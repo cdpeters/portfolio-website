@@ -1,4 +1,4 @@
-"""Layout for the home page.
+"""Layout for the about me page.
 
 Variables:
     layout

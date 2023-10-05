@@ -85,7 +85,7 @@ def create_sidebar() -> html.Div:
             page["name"],
             id=page["id_page_link"],
             href=page["relative_path"],
-            className="mx-2 mb-1 rounded-md py-[3px] pl-6 pr-2 text-left text-xl font-semibold text-emerald-50 duration-150 hover:bg-slate-700 hover:pl-7 hover:pr-1.5",
+            className="mx-2 mb-1 rounded-md py-[3px] pl-2 pr-2 text-left text-lg font-semibold text-emerald-50 duration-150 hover:bg-slate-700 hover:pl-3 hover:pr-1.5",
         )
 
         # Create the language key and its starting value if it does not exist yet. The
@@ -131,7 +131,9 @@ def create_sidebar() -> html.Div:
         # argument can be a list but it must not contain a list as an element).
         sections,
         id=IDS["sidebar"],
-        className="pb-6 overflow-auto bg-slate-800 transition-transform duration-300 max-md:fixed max-md:bottom-0 max-md:left-0 max-md:top-[4rem] max-md:w-[13rem] max-md:-translate-x-full md:col-span-1 md:col-start-1 md:row-span-2 md:row-start-2",
+        className="""overflow-auto bg-slate-800 pb-6 transition-transform duration-300
+        max-md:fixed max-md:bottom-0 max-md:left-0 max-md:top-[4rem] max-md:w-[14.5rem] max-md:-translate-x-full
+        md:col-span-1 md:col-start-1 md:row-span-2 md:row-start-2""",
     )
 
 
@@ -196,7 +198,7 @@ def update_sidebar_style(
     # Remove the `/` from `pathname` in order to use it as an accessor in
     # `link_class`.
     if pathname == "/":
-        page = "home"
+        page = "about_me"
     else:
         page = pathname.replace("/", "")
         page = page.replace("-", "_")

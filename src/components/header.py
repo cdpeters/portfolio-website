@@ -37,7 +37,9 @@ contact_info = dcc.Link(
 
 header = html.Div(
     [nav_button, contact_info],
-    className="col-span-2 col-start-1 row-span-1 row-start-1 flex items-center justify-between border-b-[1px] border-slate-700 bg-slate-900 px-4 md:col-span-1 md:col-start-1 md:row-span-1 md:row-start-1 md:justify-center",
+    className="""col-span-2 col-start-1 row-span-1 row-start-1
+    flex items-center justify-between border-b-[1px] border-slate-700 bg-slate-900 px-4
+    md:col-span-1 md:col-start-1 md:row-span-1 md:row-start-1 md:justify-center""",
 )
 
 
