@@ -20,6 +20,7 @@ data_types = {
     "libraries_tools": pd.StringDtype(),
     "concepts": pd.StringDtype(),
     "website": pd.StringDtype(),
+    "website_name": pd.StringDtype(),
 }
 
 projects = pd.read_excel(metadata_path, dtype=data_types, index_col=0)

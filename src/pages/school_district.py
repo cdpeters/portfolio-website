@@ -54,10 +54,18 @@ for key in SUMMARY_KEYS:
     summary_data.append(label_div)
 
     # Data div.
-    data_div = html.Div(
-        page_metadata[key],
-        className=SUMMARY_DATA[key]["data_div"]["class"],
-    )
+    if (key == "website") and (page_metadata[key] != "N/A"):
+        data_div = html.Div(
+            dcc.Link(
+                page_metadata["website_name"], href=page_metadata[key], target="_blank"
+            ),
+            className=SUMMARY_DATA[key]["data_div"]["class"],
+        )
+    else:
+        data_div = html.Div(
+            page_metadata[key],
+            className=SUMMARY_DATA[key]["data_div"]["class"],
+        )
     summary_data.append(data_div)
 
 # Summary title bar label.
@@ -78,7 +86,6 @@ repo_link = dcc.Link(
         ),
     ],
     href=page_metadata["repo"],
-    refresh=True,
     target="_blank",
     className=SUMMARY_BAR["link"]["class"],
 )
