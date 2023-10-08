@@ -28,7 +28,7 @@ layer with an info box containing hotel, city, and weather data was added for
 each location. The result is shown here:
 
 <div align="center">
-    <img src="assets/images/weather_map_api/WeatherPy_Vacation_Map.png" alt="world map" />
+    <img src="assets/images/weather_map_api/WeatherPy_Vacation_Map.svg" alt="world map" />
 </div>
 
 ### **Four City Itinerary with Nearby Hotels**
@@ -37,7 +37,7 @@ possible itinerary that the user might be interested in. Another map was created
 with a similar marker layer as before with just these four cities as seen below:
 
 <div align="center">
-    <img src="assets/images/weather_map_api/WeatherPy_Travel_Map_Markers.png" alt="four city itinerary with nearby hotels" />
+    <img src="assets/images/weather_map_api/WeatherPy_Travel_Map_Markers.svg" alt="four city itinerary with nearby hotels" />
 </div>
 
 ### **Four City Itinerary with Directions Layer**
@@ -46,5 +46,5 @@ same area was created with a directions layer included. This represents a
 possible route to follow while on the vacation.
 
 <div align="center">
-    <img src="assets/images/weather_map_api/WeatherPy_Travel_Map.png" alt="four city itinerary with directions" />
+    <img src="assets/images/weather_map_api/WeatherPy_Travel_Map.svg" alt="four city itinerary with directions" />
 </div>
