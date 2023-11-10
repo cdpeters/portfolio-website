@@ -118,7 +118,15 @@ ___
 ___
 
 ### Git
-- git/GitHub workflows to be added in the future.
+#### Undo a `git push`
+1. In the local repository, on the branch you want to undo the push for, reset to the last known good commit:
+	```shell
+	git reset <last_known_good_commit>
+	```
+1. Force push to the remote repository:
+	```shell
+	git push -f origin <branch_name>
+	```
 
 *[Return to Topics List](#topics)*
 
