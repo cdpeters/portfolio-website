@@ -40,6 +40,3 @@ app.layout = html.Div(
     ],
     className="tap-color-transparent grid h-screen grid-cols-[14.5rem_1fr] grid-rows-[4rem_1fr_2.5rem] md:grid-rows-[5rem_1fr_1.75rem]",
 )
-
-if __name__ == "__main__":
-    app.run(debug=True)
