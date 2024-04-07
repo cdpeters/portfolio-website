@@ -4,7 +4,7 @@ repos:
 # Python and Markdown Files (.py and .md) --------------------------------------
 # Style Formatter
 - repo: https://github.com/psf/black
-  rev: 23.9.1
+  rev: 23.12.1
   hooks:
   - id: black
     types: [python]
@@ -14,10 +14,10 @@ repos:
   hooks:
   - id: blacken-docs
     types: [markdown]
-    additional_dependencies: [black==23.9.1]
+    additional_dependencies: [black==23.12.1]
 # Import Formatter
 - repo: https://github.com/PyCQA/isort
-  rev: 5.12.0
+  rev: 5.13.2
   hooks:
   - id: isort
     name: isort (python)
@@ -25,10 +25,10 @@ repos:
       --profile=black
     ]
     types: [python]
-    additional_dependencies: [black==23.9.1]
+    additional_dependencies: [black==23.12.1]
 # Docstring Coverage
 - repo: https://github.com/econchick/interrogate
-  rev: 1.5.0
+  rev: 1.6.0
   hooks:
   - id: interrogate
     args: [
@@ -51,7 +51,7 @@ repos:
     types: [python]
 # Jupyter Notebooks (.ipynb) ---------------------------------------------------
 - repo: https://github.com/nbQA-dev/nbQA
-  rev: 1.7.0
+  rev: 1.8.5
   hooks:
   # Style Formatter
   - id: nbqa-black
@@ -60,7 +60,7 @@ repos:
     entry: nbqa black
     require_serial: true
     types: [jupyter]
-    additional_dependencies: [black==23.9.1]
+    additional_dependencies: [black==23.12.1]
   # Markdown Code Block Formatter
   - id: nbqa
     name: nbqa-blacken-docs
@@ -71,7 +71,7 @@ repos:
     entry: nbqa blacken-docs
     require_serial: true
     types: [jupyter]
-    additional_dependencies: [black==23.9.1, blacken-docs==1.16.0]
+    additional_dependencies: [black==23.12.1, blacken-docs==1.16.0]
   # Import Formatter
   - id: nbqa-isort
     name: nbqa-isort
@@ -82,7 +82,7 @@ repos:
     entry: nbqa isort
     require_serial: true
     types: [jupyter]
-    additional_dependencies: [isort==5.12.0, black==23.9.1]
+    additional_dependencies: [isort==5.13.2, black==23.12.1]
   # Docstring Coverage
   - id: nbqa
     name: nbqa-interrogate
@@ -96,7 +96,7 @@ repos:
     entry: nbqa interrogate
     require_serial: true
     types: [jupyter]
-    additional_dependencies: [interrogate==1.5.0]
+    additional_dependencies: [interrogate==1.6.0]
   # Linter
   - id: nbqa-flake8
     name: nbqa-flake8
@@ -112,7 +112,7 @@ repos:
     additional_dependencies: [flake8==6.1.0, flake8-docstrings==1.7.0]
 # File Formatting --------------------------------------------------------------
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.4.0
+  rev: v4.6.0
   hooks:
   - id: trailing-whitespace
   - id: mixed-line-ending
