@@ -82,7 +82,7 @@ ___
 	1. Navigate to the project's `src` folder.
 	1. Run the app:
 		```shell
-		python app.py
+		flask run --debug
 		```
 
 #### Adding Pages
