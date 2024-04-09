@@ -45,7 +45,7 @@ EXTERNAL_LINKS = {
     "github": "https://github.com/cdpeters",
     "linkedin": "https://www.linkedin.com/in/cdpeters1/",
     "email": "mailto:cdpeters1@gmail.com",
-    "resume": "https://drive.google.com/file/d/1-swa3WNhcCW4XXgqaISO96zZB3Xqf6GS/view?usp=drive_link",
+    "resume": "https://drive.google.com/file/d/10KNwUkqPCGEODEX5FX-jDgbw_LM_ip_i/view?usp=sharing",
 }
 
 
