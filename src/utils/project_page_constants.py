@@ -55,7 +55,7 @@ SUMMARY_BAR["span"] = {"label": "Source", "class": className}
 # Summary data -------------------------------------------------------------------------
 SUMMARY_DATA: dict[str, Any] = dict()
 
-className = "py-1 px-2 grid grid-cols-[8.5em_1fr] grid-row-4"
+className = "py-1 px-2 grid grid-cols-[8.5em_1fr] grid-row-4 gap-y-2"
 SUMMARY_DATA["class"] = className
 
 
@@ -108,12 +108,11 @@ className = "bg-[url('/assets/images/math.png')] bg-center bg-cover xl:bg-bottom
 LAYOUT["class"] = className
 
 # Prose container.
-className = """prose prose-slate max-w-full px-4 py-6
-sm:prose-lg lg:prose-xl 2xl:prose-2xl
-marker:text-slate-500 prose-headings:text-slate-700
-max-xs:prose-h1:text-[2.1rem] sm:prose-h1:text-[2.625rem] lg:prose-h1:text-5xl prose-h1:text-center prose-h1:leading-tight
-hover:prose-a:text-slate-500 prose-img:border prose-img:border-slate-400 prose-img:shadow-md prose-img:shadow-slate-400
-xs:max-w-3xl xs:px-8 2xl:max-w-5xl backdrop-blur-[4px]"""
+className = """prose prose-slate max-w-full px-4 py-6 backdrop-blur-[4px]
+xs:prose-lg lg:prose-xl marker:text-slate-500 prose-headings:text-slate-700 prose-h1:text-center
+hover:prose-a:text-slate-500 prose-img:border prose-img:border-slate-400
+prose-img:shadow-md prose-img:shadow-slate-400 xs:px-8 xs:prose-h1:text-4xl sm:max-w-xl
+md:max-w-2xl lg:max-w-3xl lg:prose-h1:text-5xl lg:prose-h1:leading-tight"""
 LAYOUT["div"] = {"class": className}
 
 # Hr.

@@ -38,5 +38,5 @@ app.layout = html.Div(
         create_sidebar(),
         footer,
     ],
-    className="tap-color-transparent grid h-screen grid-cols-[14.5rem_1fr] grid-rows-[4rem_1fr_2.5rem] md:grid-rows-[5rem_1fr_1.75rem]",
+    className="tap-color-transparent grid h-screen grid-cols-[15.25rem_1fr] grid-rows-[4rem_1fr_2.5rem] md:grid-rows-[5rem_1fr_1.75rem]",
 )

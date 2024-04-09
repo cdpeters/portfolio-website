@@ -132,7 +132,7 @@ def create_sidebar() -> html.Div:
         sections,
         id=IDS["sidebar"],
         className="""overflow-auto bg-slate-800 pb-6 transition-transform duration-300
-        max-md:fixed max-md:bottom-0 max-md:left-0 max-md:top-[4rem] max-md:w-[14.5rem] max-md:-translate-x-full
+        max-md:fixed max-md:bottom-0 max-md:left-0 max-md:top-[4rem] max-md:w-[15.25rem] max-md:-translate-x-full
         md:col-span-1 md:col-start-1 md:row-span-2 md:row-start-2""",
     )
 

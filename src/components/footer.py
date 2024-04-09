@@ -18,7 +18,7 @@ footer = html.Div(
         refresh=True,
         target="_blank",
         title="Portfolio Source Code",
-        className="flex items-center justify-end gap-2 px-2.5 hover:bg-slate-600",
+        className="flex items-center justify-end gap-2 px-2.5 py-2 hover:bg-slate-600 md:py-0.5",
     ),
     className="""col-span-2 col-start-1 row-span-1 row-start-3
     flex items-center justify-end bg-slate-700
