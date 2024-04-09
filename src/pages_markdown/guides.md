@@ -1,4 +1,4 @@
-# **Project Installation/Workflow Guides**
+# **Project Installation and Workflow Guides**
 
 ## **Overview of Project**
 The motivation for the guides I share here goes back to the final group project
