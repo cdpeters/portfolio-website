@@ -1,4 +1,4 @@
-# **Working with OpenWeatherMap and Google Maps API's**
+# **Open Weather Map and Google Maps API's**
 
 ## **Overview of Project**
 The main focus of this project is to interact with and retrieve data from

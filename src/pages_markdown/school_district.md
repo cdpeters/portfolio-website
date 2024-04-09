@@ -1,4 +1,4 @@
-# **School District Analysis with pandas**
+# **School District Analysis**
 
 ## **Overview of Project**
 The goal of this analysis is to examine standardized test score data from all
