@@ -16,7 +16,7 @@ from utils.constants import IDS
 app = Dash(
     name=__name__,
     use_pages=True,
-    title="Dash Test App",
+    title="Portfolio",
     assets_ignore="input.css",
 )
 
