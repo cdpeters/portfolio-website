@@ -195,10 +195,6 @@ def tools(
             raise click.BadArgumentUsage(
                 f"'{path.name}' is not a markdown or jupyter notebook file."
             )
-        if path.parent != cwd:
-            raise click.BadArgumentUsage(
-                f"'{path.name}' is not found in the current working directory."
-            )
 
     # Input Processing -----------------------------------------------------------------
     # Set up `type_prepend` based on the `markdown` and `file_type` inputs
