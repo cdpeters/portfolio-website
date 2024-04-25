@@ -20,8 +20,6 @@ Constants:
 """
 from typing import Any
 
-from rich.pretty import pprint
-
 from utils.constants import ICONS
 
 # The keys for the data in the summary, repo is excluded since it is in the summary
@@ -118,14 +116,3 @@ LAYOUT["div"] = {"class": className}
 # Hr.
 className = "not-prose mx-2 mt-2 mb-12 border-slate-400"
 LAYOUT["hr"] = {"class": className}
-
-
-if __name__ == "__main__":
-    pprint("SUMMARY_BAR:")
-    pprint(SUMMARY_BAR, indent_guides=False, expand_all=True)
-    print()
-    pprint("SUMMARY_DATA:")
-    pprint(SUMMARY_DATA, indent_guides=False, expand_all=True)
-    print()
-    pprint("LAYOUT:")
-    pprint(LAYOUT, indent_guides=False, expand_all=True)

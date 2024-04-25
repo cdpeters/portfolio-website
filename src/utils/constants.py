@@ -24,8 +24,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-from rich.pretty import pprint
-
 # Page and Section Data ----------------------------------------------------------------
 # list of pages to be include in the sidebar.
 src_data_dir = Path(__file__).parents[1].joinpath("data")
@@ -95,6 +93,3 @@ COLORS = {
     "text_color_light": "text-emerald-50",
     "hover_color_dark": "hover:bg-slate-700",
 }
-
-if __name__ == "__main__":
-    pprint(IDS, indent_guides=False, expand_all=True)

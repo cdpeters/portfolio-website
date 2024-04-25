@@ -10,9 +10,6 @@ python = "^3.11"
 dash = "^2.13.0"
 pandas = "^2.1.0"
 gunicorn = "^21.2.0"
-ibis-framework = {extras = ["sqlite"], version = "^6.2.0"}
-rich = "^13.5.2"
-
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.25.2"
@@ -31,7 +28,8 @@ click = "^8.1.7"
 docrepr = "^0.2.0"
 openpyxl = "^3.1.2"
 pandas-stubs = "^2.0.3.230814"
-
+rich = "^13.5.2"
+ibis-framework = {extras = ["sqlite"], version = "^6.2.0"}
 
 [tool.black]
 target-version = ["py311"]
