@@ -20,6 +20,7 @@ Constants:
     Frequently Used CSS Classes:
         COLORS
 """
+
 import json
 from pathlib import Path
 from typing import Any
@@ -43,7 +44,7 @@ EXTERNAL_LINKS = {
     "github": "https://github.com/cdpeters",
     "linkedin": "https://www.linkedin.com/in/cdpeters1/",
     "email": "mailto:cdpeters1@gmail.com",
-    "resume": "https://drive.google.com/file/d/10KNwUkqPCGEODEX5FX-jDgbw_LM_ip_i/view?usp=sharing",
+    "resume": "https://drive.google.com/file/d/1W7xQXOacXh1flI6NJlnC9AgVDrHX2LVZ/view?usp=sharing",
 }
 
 
