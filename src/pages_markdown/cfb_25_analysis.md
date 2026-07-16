@@ -26,7 +26,7 @@ app capability
 - `httpx`: fetch roster files from the git repo for the web app version
 
 The app is deployed on GitHub Pages: [CFB 25 Roster Analysis
-App](https://cdpeters.github.io/cfb-analysis/).
+App](https://cdpeters.github.io/cfb-25-analysis/).
 
 ### **Roster Data**
 Roster data is collected manually and contained within three separate Excel
@@ -35,29 +35,29 @@ files, one for each of the three universities analyzed:
 - the dynasty mode starts in the 2024 season but data was only collected for the
 2029 and 2030 seasons
 - roster files are located in the
-[`data/datasets/`](https://github.com/cdpeters/cfb-analysis/tree/main/data/datasets)
+[`data/datasets/`](https://github.com/cdpeters/cfb-25-analysis/tree/main/data/datasets)
 folder.
 
 ### **Notebooks**
 The relevant `marimo` notebooks can be found in the
-[`notebooks/`](https://github.com/cdpeters/cfb-analysis/tree/main/notebooks)
+[`notebooks/`](https://github.com/cdpeters/cfb-25-analysis/tree/main/notebooks)
 folder. The notebooks are:
-- [`roster_analysis.py`](https://github.com/cdpeters/cfb-analysis/blob/main/notebooks/roster_analysis.py):
+- [`roster_analysis.py`](https://github.com/cdpeters/cfb-25-analysis/blob/main/notebooks/roster_analysis.py):
 the primary analysis notebook that the web app is derived from
-- [`roster_comparison.py`](https://github.com/cdpeters/cfb-analysis/blob/main/notebooks/roster_comparison.py):
+- [`roster_comparison.py`](https://github.com/cdpeters/cfb-25-analysis/blob/main/notebooks/roster_comparison.py):
 compares the three rosters of a given season directly (currently a work
 in progress)
-- [`players_leaving.py`](https://github.com/cdpeters/cfb-analysis/blob/main/notebooks/players_leaving.py):
+- [`players_leaving.py`](https://github.com/cdpeters/cfb-25-analysis/blob/main/notebooks/players_leaving.py):
 updates the roster files with a new sheet for the next season with seniors
 removed and class standing for each player advanced by one year (freshman to
 sophomore, sophomore to junior, etc.)
-- [`utilities.py`](https://github.com/cdpeters/cfb-analysis/blob/main/notebooks/utilities.py):
+- [`utilities.py`](https://github.com/cdpeters/cfb-25-analysis/blob/main/notebooks/utilities.py):
 a supporting file for `players_leaving.py`.
 
 ### **Additional Visualizations**
 When `roster_analysis.py` is run locally, the visualizations that get created
 for a specific university and season get saved in the
-[`data/images/`](https://github.com/cdpeters/cfb-analysis/tree/main/data/images)
+[`data/images/`](https://github.com/cdpeters/cfb-25-analysis/tree/main/data/images)
 folder. There are also some images from `roster_comparison.py` located in the
 same folder.
 
@@ -65,9 +65,9 @@ same folder.
 The project can be run locally via the following instructions. These
 instructions assume the usage of the package manager `uv`.
 
-1. Clone the [cfb-analysis](https://github.com/cdpeters/cfb-analysis) repo.
+1. Clone the [cfb-25-analysis](https://github.com/cdpeters/cfb-25-analysis) repo.
 1. Create the project's environment using the `uv.lock` file by moving to
-   `cfb-analysis/` and running:
+   `cfb-25-analysis/` and running:
     ```bash
     uv sync
     ```
@@ -75,7 +75,7 @@ instructions assume the usage of the package manager `uv`.
     ```bash
     source .venv/Scripts/activate
     ```
-1. Within `cfb-analysis/notebooks/` find `roster_analysis.py` and open it in a
+1. Within `cfb-25-analysis/notebooks/` find `roster_analysis.py` and open it in a
    text editor.
 1. In line 4, where `app` is assigned, change the `html_head_file` argument to
    an empty string. The assignment should now look like this:
