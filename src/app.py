@@ -2,6 +2,7 @@
 
 Variables:
     app
+    server
 """
 
 import dash
